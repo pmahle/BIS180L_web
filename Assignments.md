@@ -17,5 +17,5 @@ Right click on the link to download the markdown template.  Edit the markdown te
 | Tue May 05 & Thur 07    | Understanding Illumina | [See lab]({{site.baseurl}}/{% post_url 2015-05-08-R-SNPs%}) | __Tue May 12 9AM__ |
 | Tue May 12  | RNAseq Differential Expression 1 | [See lab]({{site.baseurl}}/{% post_url 2015-05-12-RNAseq-edgeR%}) | __Tue May 19 1:10PM__ | 
 | Thur May 14 | RNAseq Differential Expression 2 |  [See lab]({{site.baseurl}}/{% post_url 2015-05-14-RNAseq-Annotation%})| __Tue May 19 1:10PM__ |
-| Tues May 19   | Gene Networks | [Networks template](Assignment_6_template.Rmd)          |  |
+| Tues May 19   | Gene Networks | [Networks template](Assignment_7_template.Rmd)          |  |
 
