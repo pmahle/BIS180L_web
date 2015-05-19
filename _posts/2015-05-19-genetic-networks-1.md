@@ -34,7 +34,7 @@ A special note: all the clusters at each merge take on the shortest distance bet
 
 
 ```bash
-wget https://github.com/rjcmarkelz/BIS180L_web/tree/feature-networks/data/us_cities.txt
+wget https://raw.githubusercontent.com/rjcmarkelz/BIS180L_web/tree/feature-networks/data/us_cities.txt
 ```
 
 
@@ -81,8 +81,8 @@ Lets start by loading the two datasets. Then we can subset the larger full datas
 
 
 ```bash
-wget https://github.com/rjcmarkelz/BIS180L_web/tree/feature-networks/data/DEgenes_GxE.csv
-wget https://github.com/rjcmarkelz/BIS180L_web/tree/feature-networks/data/voom_transform_brassica.csv
+wget https://raw.githubusercontent.com/rjcmarkelz/BIS180L_web/tree/feature-networks/data/DEgenes_GxE.csv
+wget https://raw.githubusercontent.com/rjcmarkelz/BIS180L_web/tree/feature-networks/data/voom_transform_brassica.csv
 ```
 
 
