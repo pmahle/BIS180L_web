@@ -1,12 +1,12 @@
 ---
-title: "Assignment 6"
+title: "Assignment 7"
 output: html_document
 ---
 
 __Student Name:__
 __Student ID:__
 
-## Assignment 6: Gene Networks
+## Assignment 7: Gene Networks
 
 This should be a knittable .Rmd file.  Include this file and a .html when you turn in the assignment.
 
