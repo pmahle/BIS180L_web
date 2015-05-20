@@ -37,9 +37,9 @@ Schedule is subject to change (but not the exam dates)
 |                   |         |  
 | Tue 1:10 - 5:00   |  19-May |  Genetic Networks
 | Thur 1:10 - 5:00  |  21-May |  Genetic Networks
-| Fri 1:10 - 2:00   |  22-May |  Discussion: Genetic Networks
+| Fri 1:10 - 2:00   |  22-May |  Genetic Networks
 |                   |         |  
-| Tue 1:10 - 5:00   |  26-May |  Metagenomics
+| Tue 1:10 - 5:00   |  26-May |  Discussion: Genetic Networks
 | Thur 1:10 - 5:00  |  28-May |  Metagenomics
 | Fri 1:10 - 2:00   |  29-May |  Discussion: Metagenomics
 |                   |         |  

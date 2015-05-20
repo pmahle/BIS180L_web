@@ -27,5 +27,5 @@ This will be a significant component of the "presentation/participation" part of
 | 24-Apr | Fri | GWAS                | Samuel Deck   | Scot Nicol     | Tyler Kent   | Chad Ho        | Bobby Rider |
 | 8-May  | Fri | Illumina            | Gurkern Sufi  | Matt Denney    | Andy Peng    | Pallavi Setty  |             |
 | 15-May | Fri | RNAseq              | Derek Lin     | Edward Sung    | Kristina Bow | Calvin Mackey  | Anjali Kadaka    |
-| 22-May | Fri | Networks            | Khoa Nguygen  |  Ben Roa  | Jenny Cade   |                |             |
+| 26-May | Tue | Networks            | Khoa Nguygen  |  Ben Roa  | Jenny Cade   |                |             |
 | 29-May | Fri | Metagenomics        | Marina Becker | Leslie Herrera | Kevin Hu     | Derek Conkle-G.| Anna Aleykina |
