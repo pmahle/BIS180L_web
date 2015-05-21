@@ -18,6 +18,7 @@ Today we will analyze variation in the phenotypic data.  We specifically want to
 ## Plotting the Amylose data
 
 We need to get the population assignments from PSmix in the same data frame as the MDS genotype assignments and the phenotypic data.  You should have saved this at the end of Tuesday's lab
+
 ```{r ,echo=F,results='hide'}
 load("../data/data_from_SNP_lab.RData")
 ```
@@ -27,6 +28,7 @@ load("data_from_SNP_lab.RData")
 ```
 
 check it
+
 ```{r }
 head(geno.mds)
 
@@ -34,12 +36,15 @@ head(geno.mds)
 ```
 
 Do the merge
+
 ```{r }
+
 data.pheno.mds <- merge(geno.mds,data.pheno,by="row.names",all=T) #even if you already have this object, rerun it so that the AmID and pr1-4 columns are brought in
 ```
 
 
 Lets examine the distribution of Amylose values.  We can tell qplot to produce a histogram as follows:
+
 ```{r Amylose_hist,results='hide',eval=FALSE}
 library(ggplot2)
 qplot(x=Amylose.content,data=data.pheno.mds,geom="histogram")
@@ -48,6 +53,7 @@ qplot(x=Amylose.content,data=data.pheno.mds,geom="histogram")
 It might be interesting to ask if the distributions look similar for different regions.
 We can also easily produce separate histograms for each level of a factor.
 Because this is getting to be a more complex plot we will use ggplot to build up the plot.  First we create a plot object, called pl, using the ggplot() function.  Then we add additional information to the plot.  the mapping=aes() argument tells R about the "aesthetics" of the plot, in other words which variable should be mapped to which aspect of the plot.
+
 ```{r Amylose_hist2,results='hide',eval=FALSE}
 pl <- ggplot(data=data.pheno.mds,aes(x=Amylose.content)) #create the basic plot object
 pl <- pl + geom_histogram(binwidth=3) #tell R that we want a histogram, with binwidth of 3
@@ -58,6 +64,7 @@ pl #display the plot
 We are a little sparse on data for histograms to be a great way to visualize the results.
 
 An alternative and useful way to display the data is to use a [boxplot](http://en.wikipedia.org/wiki/Box_plot). The horizontal line is the median and the box is the inter-quartile range (25th to 75th percentile).  See the link for more details.
+
 ```{r boxplot, eval=FALSE}
 qplot(x=Region,y=Amylose.content,geom="boxplot",data=data.pheno.mds)
 ```
@@ -164,6 +171,7 @@ snpinfo3 <- snpinfo[snpinfo$chr==3,]
 
 #convert SNPinfo to a format that SNPassoc can use
 snps3 <- setupSNP(data.geno.pheno3,48:ncol(data.geno.pheno3),sort=T,info=snpinfo3,sep="")
+
 ```
 For the actual GWAS we will compare a model with and without correction for population structure.  The correction method that we use, including ancestral genome proportions as co-variates, is a good first step.  However it is often better to include a Kinship matrix of genetic relatedness.  Since this tutorial was created an R package with state-of-the-art methods has been released.  The package is GAPIT [website](http://www.maizegenetics.net/#!gapit/cmkv) and [paper](http://bioinformatics.oxfordjournals.org/content/28/18/2397.long).  If you are going to do a serious GWAS you should consider using GAPIT.
 
