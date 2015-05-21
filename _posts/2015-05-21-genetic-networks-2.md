@@ -10,6 +10,10 @@ tags:
      - RNA-seq 
      - graphs
 --- 
+
+
+
+
 # Biological Context 
 In the past few weeks we have taken data off the sequencer, aligned the reads to our reference genome, calculated counts for the number of reads that mapped to each gene in our reference genome, found out what genes are differentially expressed between our genotype treatment combinations, and started to interpret the data using clustering. With these large data sets there is more than one way to look at the data. As biologists we need to critically evaluate what the data is telling us and interpret it using our knowledge of biological processes. In our case we have an environmental perturbation that we have imposed on the plants by altering the density of plants in a given pot. Understanding mechanistically how plants respond to crowding is important for understanding how plants grow and compete for resources in natural ecosystems, and how we might manipulate plants to grow optimally in agroecosystems. In our case, we have two genotypes of plants that show very different physiological and morphological responses to crowding. We have a lot of data, some quantitative, some observational, that support this. Plant growth, just like the growth of any organism, is a really complicated thing. Organisms have evolved to interact with the environment by taking in information from their surroundings and trying to alter their physiology and biochemistry to better live in that environment. We know a lot about the details of how these signals are intercepted by the organisms, but we know less how this translates to changes in biochemistry, physiology, development, growth, and ultimately reproductive outputs. In our case, plants receive information about their neighbors through detecting changes in light quality through the phytochrome light receptors. This is a focus of the Maloof lab. You can read more generally about the way plants perceive these changes **[here](http://www.bioone.org/doi/full/10.1199/tab.0157)**. We want to understand how plants connect the upstream perception of environmental signals (in this case the presence of neighbors) and how this information cascades through the biological network of the organism to affect the downstream outputs of physiological and developmental changes. To get an approximation of what is going on in the biological network we need to work with an intermediate form of biological information: gene expression. Although there are important limitations to only using gene expression data which we will discuss during the lecture, it should provide some clues as to how to best connect the upstream environmental perception with the downstream growth outputs.
 
@@ -44,7 +48,7 @@ Infile the data into R.
 
 ```r
 # make sure to change the path
-cities <- read.table("/Users/Cody_2/git.repos/BIS180L_web/data/us_cities.txt", sep = "\t", header = TRUE)
+cities <- read.table("../data/us_cities.txt", sep = "\t", header = TRUE)
 rownames(cities) <- cities$X #make first column the rownames
 cities <- cities[,-1] #remove first column
 cities <- as.matrix(cities) #convert to matrix
@@ -103,31 +107,17 @@ install.packages("igraph") # Download and install the package
 ```
 
 ```
-## Installing package into '/Users/Cody_2/Library/R/3.1/library'
-## (as 'lib' is unspecified)
-```
-
-```
-## 
-## The downloaded binary packages are in
-## 	/var/folders/jh/6yqw6n710sj2xr9knz37tt0w0000gn/T//RtmpJrfbhG/downloaded_packages
+## Error in install.packages : Updating loaded packages
 ```
 
 ```r
 library(igraph) # load package
-```
-
-```
-## Warning: package 'igraph' was built under R version 3.1.2
-```
-
-```r
 # make sure to use the 2000 mile distance cutoff 
 cities_graph2 <- graph.adjacency(cities_mat, mode = "undirected")
 plot.igraph(cities_graph2)
 ```
 
-![plot of chunk unnamed-chunk-4]({{ site.baseurl }}/figure/unnamed-chunk-4-1.png) 
+![plot of chunk plotigraph1]({{ site.baseurl }}/figure/plotigraph1-1.png) 
 **Exercise 2:**
 What is the total number of nodes in the plot? 
 What is the total number of edges in the plot?
@@ -189,9 +179,9 @@ Infile the data and calculate an adjacency matrix using a 0.85 correlation cutof
 
 
 ```r
-genes <- read.table("/Users/Cody_2/git.repos/BIS180L_web/data/voom_transform_brassica.csv", sep = ",", header = TRUE)
+genes <- read.table("voom_transform_brassica.csv", sep = ",", header = TRUE)
 genes <- genes[,-c(38,42,46)] # remove questionable library columns
-DE_genes <- read.table("/Users/Cody_2/git.repos/BIS180L_web/data/DEgenes_GxE.csv", sep = ",")
+DE_genes <- read.table("DEgenes_GxE.csv", sep = ",")
 DE_gene_names <- rownames(DE_genes)
 GxE_counts <- as.data.frame(genes[DE_gene_names,])
 genes_cor <- cor(t(GxE_counts)) # calculate the correlation between all gene pairs
@@ -217,7 +207,7 @@ V(gene_graph95)$color <- colbar[comps+1]                          #assign colors
 plot(gene_graph95, layout = layout.fruchterman.reingold, vertex.size = 6, vertex.label = NA)
 ```
 
-![plot of chunk unnamed-chunk-8]({{ site.baseurl }}/figure/unnamed-chunk-8-1.png) 
+![plot of chunk plotgenenetwork]({{ site.baseurl }}/figure/plotgenenetwork-1.png) 
 
 ```r
 #this one will take a little while to render
@@ -230,7 +220,7 @@ V(gene_graph85)$color <- colbar[comps+1]
 plot(gene_graph85, layout=layout.fruchterman.reingold, vertex.size=6, vertex.label=NA)
 ```
 
-![plot of chunk unnamed-chunk-8]({{ site.baseurl }}/figure/unnamed-chunk-8-2.png) 
+![plot of chunk plotgenenetwork]({{ site.baseurl }}/figure/plotgenenetwork-2.png) 
 
 ##Graph Statistics for Network Comparison
 Graph density is a measure of the total number of edges between nodes out of the total possible number of edges between nodes. It is a useful metric if you want to compare two networks with a similar number of nodes. We could have split our data into the two treatments (DP and NDP) at the beginning of our analysis, built separate networks for each, then used metrics like this to compare the network properties between treatments. 
@@ -281,7 +271,7 @@ E(gene_graph85, path = pl)$width <- 10               # define edge width
 plot(gene_graph85, layout = layout.fruchterman.reingold, vertex.size = 6, vertex.label = NA)
 ```
 
-![plot of chunk unnamed-chunk-10]({{ site.baseurl }}/figure/unnamed-chunk-10-1.png) 
+![plot of chunk plotgenegraph85]({{ site.baseurl }}/figure/plotgenegraph85-1.png) 
 
 **Exercise 8:**
 Using what you know about graphs, repeat the analysis for the smaller cities matrix. Show your code to answer these questions.
