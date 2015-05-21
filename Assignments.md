@@ -18,4 +18,5 @@ Right click on the link to download the markdown template.  Edit the markdown te
 | Tue May 12  | RNAseq Differential Expression 1 | [See lab]({{site.baseurl}}/{% post_url 2015-05-12-RNAseq-edgeR%}) | __Tue May 19 1:10PM__ | 
 | Thur May 14 | RNAseq Differential Expression 2 |  [See lab]({{site.baseurl}}/{% post_url 2015-05-14-RNAseq-Annotation%})| __Tue May 19 1:10PM__ |
 | Tues May 19   | Gene Networks | [Networks template](Assignment_7_template.Rmd)          | __Thursday May 28 1:10 PM__ |
+| Thur May 21   | Gene Networks 2 | [Networks template](Assignment_8_template.Rmd)          | __Thursday May 28 1:10 PM__ |
 
