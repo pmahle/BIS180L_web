@@ -159,7 +159,9 @@ install.packages("pvclust")
 ```
 
 ```
-## Error in install.packages : Updating loaded packages
+## 
+## The downloaded binary packages are in
+## 	/var/folders/xr/9cbydt955pj42zfq6mc_y5g40000gn/T//RtmpTMOdij/downloaded_packages
 ```
 
 ```r
@@ -207,7 +209,9 @@ install.packages("gplots") #not to be confused with ggplot2!
 ```
 
 ```
-## Error in install.packages : Updating loaded packages
+## 
+## The downloaded binary packages are in
+## 	/var/folders/xr/9cbydt955pj42zfq6mc_y5g40000gn/T//RtmpTMOdij/downloaded_packages
 ```
 
 ```r
@@ -299,7 +303,7 @@ ggplot(data = plotting, aes(x = PC1, y = PC2, label = Row.names, color = cluster
 ```
 
 ![plot of chunk unnamed-chunk-12]({{ site.baseurl }}/figure/unnamed-chunk-12-1.png) 
-**Exercise 8:** Pretty Colors! Describe what you see visually with 2, 5, 9, and 15 clusters using either method. Why would it be a bad idea to have to few or to many clusters? Discuss with a specific example comparing few vs. many k-means. Justify your choice of too many and too few clusters by describing what you see in each case.
+**Exercise 8:** Pretty Colors! Describe what you see visually with 2, 5, 9, and 15 clusters. Why would it be a bad idea to have to few or to many clusters? Discuss with a specific example comparing few vs. many k-means. Justify your choice of too many and too few clusters by describing what you see in each case.
 
 The final thing that we will do today is try to estimate, based on our data, what the ideal number of clusters is. For this we will use something called the Gap statistic. 
 
@@ -310,7 +314,9 @@ install.packages("cluster")
 ```
 
 ```
-## Error in install.packages : Updating loaded packages
+## 
+## The downloaded binary packages are in
+## 	/var/folders/xr/9cbydt955pj42zfq6mc_y5g40000gn/T//RtmpTMOdij/downloaded_packages
 ```
 
 ```r
@@ -344,7 +350,7 @@ with(gap, maxSE(Tab[,"gap"], Tab[,"SE.sim"], method="firstSEmax"))
 ```
 ## [1] 4
 ```
-**Exercise 10:** What did clusGap() calculate? How does this compare to your answer from Exercise 9? Make a plot using the combined autoplot() and kmeans functions as you did before, but choose the number of k-means you chose and the number of k-means that are calculated from the Gap Statistic. Describe the differences in the plots.
+**Exercise 10:** What did clusGap() calculate? How does this compare to your answer from Exercise 9? Make a plot using the kmeans functions as you did before, but choose the number of k-means you chose and the number of k-means that are calculated from the Gap Statistic. Describe the differences in the plots.
 
 Good Job Today! There was a lot of technical stuff to get through. We are going to build on all of this Thursday to construct co-expression networks and study their properties using a few of the techniques that you learned today. 
 
