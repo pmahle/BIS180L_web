@@ -159,9 +159,7 @@ install.packages("pvclust")
 ```
 
 ```
-## 
-## The downloaded binary packages are in
-## 	/var/folders/xr/9cbydt955pj42zfq6mc_y5g40000gn/T//RtmpvKELGb/downloaded_packages
+## Error in install.packages : Updating loaded packages
 ```
 
 ```r
@@ -209,9 +207,7 @@ install.packages("gplots") #not to be confused with ggplot2!
 ```
 
 ```
-## 
-## The downloaded binary packages are in
-## 	/var/folders/xr/9cbydt955pj42zfq6mc_y5g40000gn/T//RtmpvKELGb/downloaded_packages
+## Error in install.packages : Updating loaded packages
 ```
 
 ```r
@@ -314,9 +310,7 @@ install.packages("cluster")
 ```
 
 ```
-## 
-## The downloaded binary packages are in
-## 	/var/folders/xr/9cbydt955pj42zfq6mc_y5g40000gn/T//RtmpvKELGb/downloaded_packages
+## Error in install.packages : Updating loaded packages
 ```
 
 ```r

@@ -1,258 +1,250 @@
-head(M)
-u <- rnorm(1000)
-u <- rnorm(1400)
-head(u)
-g <- as.vector(crossprod(t(M),u))
-head(g)
+median(genes_cor)
+graph.adhesion(genes_adj)
+gene_graph1 <- graph.adjacency(genes_adj, "undirected")
+sum(genes_adj)/2
+hist(genes_cor[upper.tri(genes_cor)]) # slightly right skewed
+genes_adj <- abs(genes_cor) > 0.80
+sum(genes_adj)/2
+gene_graph1 <- graph.adjacency(genes_adj, "undirected")
+plot.igraph(gene_graph1)
+diag(genes_adj) <- 0
+sum(genes_adj)/2
+gene_graph1 <- graph.adjacency(genes_adj, "undirected")
+plot.igraph(gene_graph1)
+genes_adj <- abs(genes_cor) > 0.90
+diag(genes_adj) <- 0
+sum(genes_adj)/2
+gene_graph1 <- graph.adjacency(genes_adj, "undirected")
+plot.igraph(gene_graph1)
+gene_graph1 <- graph.adjacency(genes_adj, "undirected")
+plot.igraph(gene_graph1)
+genes_adj <- abs(genes_cor) > 0.90
+diag(genes_adj) <- 0
+sum(genes_adj)/2
+genes_adj <- abs(genes_cor) > 0.90
+diag(genes_adj) <- 0
+sum(genes_adj)/2
+genes_adj <- abs(genes_cor) > 0.80
+diag(genes_adj) <- 0
+sum(genes_adj)/2
+gene_graph1 <- graph.adjacency(genes_adj, "undirected")
+plot.igraph(gene_graph1)
+genes_adj8 <- abs(genes_cor) > 0.80
+diag(genes_adj8) <- 0
+sum(genes_adj8)/2
+gene_graph1 <- graph.adjacency(genes_adj, "undirected")
+?graph.adjacency
+gene_graph1 <- graph.adjacency(genes_adj, mode ="undirected")
+genes_adj8 <- abs(genes_cor) > 0.90
+diag(genes_adj8) <- 0
+sum(genes_adj8)/2
+genes_adj8 <- abs(genes_cor) > 0.80
+diag(genes_adj8) <- 0
+sum(genes_adj8)/2
+?graph.adjacency
+gene_graph1 <- graph.adjacency(genes_adj, mode ="undirected")
+genes_adj8 <- abs(genes_cor) > 0.80
+diag(genes_adj8) <- 0
+sum(genes_adj8)/2
+genes_adj9 <- abs(genes_cor) > 0.9
+diag(genes_adj9) <- 0
+sum(genes_adj9)/2
+gene_graph8 <- graph.adjacency(genes_adj8, mode ="undirected")
+gene_graph9 <- graph.adjacency(genes_adj9, mode ="undirected")
+graph.difference(gene_graph8, gene_graph9)
+difference <- graph.difference(gene_graph8, gene_graph9)
+difference
+plot(difference)
+str(difference)
+gene_graph8$name <- "Ring"
+V(gene_graph8)$name <- LETTERS[1:vcount(gene_graph8)]
+E(gene_graph8)$weight <- round(runif(ecount(gene_graph8))*10)
+dg <- graph.difference(gene_graph8, gene_graph9)
+print(dg, g=TRUE, v=TRUE, e=TRUE)
+gene_graph8 <- graph.adjacency(genes_adj8, mode ="undirected")
+graph.adhesion(gene_graph8 , checks=TRUE)
+edge.connectivity(gene_graph8, source=NULL, target=NULL, checks=TRUE)
+edge.connectivity(gene_graph8)
+gene_graph8 <- graph.adjacency(genes_adj8, mode ="undirected")
+neighborhood.size(gene_graph8, order, nodes= "Bra019741", mode=c("all", "out", "in"))
+neighborhood.size(gene_graph8, order, nodes= V(graph))
+neighborhood.size(gene_graph8, order, nodes= V(gene_graph8))
+V(gene_graph8)
+neighborhood.size(gene_graph8, order, nodes= "Bra016182")
+V(gene_graph8)
+V(gene_graph8)$name
+neighborhood.size(gene_graph8, 1, 1:3)
+g <- graph.ring(10)
+g
 plot(g)
-h2 <- 0.5 #heritability
-y <- g + rnorm(100,mean=0,sd=sqrt((1-h2)/h2*var(g)))
-head(y)
-rownames(M) <- 1:100
-A <- A.mat(M)
-str(A)
-head(A)
-h2 <- 0.5 #heritability
-y <- g + rnorm(100,mean=0,sd=sqrt((1-h2)/h2*var(g)))
-head(y)
-data <- data.frame(y = y, gid = 1:200)
-head(data)
-ans <- kin.blup(data = data, geno = "gid", pheno = "y", K = A)
-data <- data.frame(y = y, gid = 1:100)
-head(data)
-ans <- kin.blup(data = data, geno = "gid", pheno = "y", K = A)
-accuracy <- cor(g,ans$g)
-accuracy
-str(ans)
-plot(g, ans$g)
-ans2 <- mixed.solve(y,K=A.mat(M))
-str(ans2)
-accuracy2 <- cor(g,ans2$u)
-accuracy2
-plot(g, ans2$u)
-M <- matrix(rep(0,124*1400),124,1400)
-for (i in 1:124) {#
-M[i,] <- ifelse(runif(1400)<0.5,-1,1)#
-}
-head(M)
-u <- rnorm(1400)
-head(u)
-g <- as.vector(crossprod(t(M),u))
-head(g)
+neighborhood(gene_graph8, 0, 1:3)
+neighborhood(gene_graph8, 1, 1:3)
+neighborhood.size(gene_graph8, 1, nodes = 1:3)
+neighborhood(gene_graph8, 1, nodes = 1:3)
+neighborhood.size(gene_graph8, 5, nodes = 1:3)
+neighborhood(gene_graph8, 5, nodes = 1:3)
+g <- graph.ring(10)
+g <- connect.neighborhood(g, 2)
 plot(g)
-h2 <- 0.5 #heritability
-y <- g + rnorm(124,mean=0,sd=sqrt((1-h2)/h2*var(g)))
-head(y)
-phenoEST <- y[1:100,]
-dim(y)
-str(y)
-phenoEST <- y[1:100]
-phenoVal <- y[101:124]
-g
-str(M)
-marksEst <- M[1:100,]
-marksVal <- M[101:124,]
-mrkEff   <- mixed.solve(y = phenoEST, Z = marksEst)$u
-mrkEff
-gebvVec1 <- mrksVal%*%mrkEff
-gebvVec1 <- marksVal%*%mrkEff
-(predAb1 <- cor(gebvVec1, phenoVal))
-u <- rnorm(1400)
-head(u)
-g <- as.vector(crossprod(t(M),u))
-head(g)
+g <- connect.neighborhood(g, 4)
 plot(g)
-h2 <- 0.9 #heritability
-y <- g + rnorm(124,mean=0,sd=sqrt((1-h2)/h2*var(g)))
-phenoEST <- y[1:100]
-phenoVal <- y[101:124]
-marksEst <- M[1:100,]
-marksVal <- M[101:124,]
-mrkEff   <- mixed.solve(y = phenoEST, Z = marksEst)$u
-mrkEff
-gebvVec1 <- marksVal%*%mrkEff
-(predAb1 <- cor(gebvVec1, phenoVal))
-y <- g + rnorm(124,mean=0,sd=sqrt((1-h2)/h2*var(g)))
-head(y)
-dim(y)
-str(y)
-phenoEST <- y[1:100]
-phenoVal <- y[101:124]
-g
-str(M)
-marksEst <- M[1:100,]
-marksVal <- M[101:124,]
-mrkEff   <- mixed.solve(y = phenoEST, Z = marksEst)$u
-mrkEff
-gebvVec1 <- marksVal%*%mrkEff
-(predAb1 <- cor(gebvVec1, phenoVal))
-h2 <- 0.9 #heritability
-y <- g + rnorm(124,mean=0,sd=sqrt((1-h2)/h2*var(g)))
-head(y)
-dim(y)
-str(y)
-phenoEST <- y[1:100]
-phenoVal <- y[101:124]
-g
-str(M)
-marksEst <- M[1:100,]
-marksVal <- M[101:124,]
-mrkEff   <- mixed.solve(y = phenoEST, Z = marksEst)$u
-mrkEff
-gebvVec1 <- marksVal%*%mrkEff
-(predAb1 <- cor(gebvVec1, phenoVal))
-h2 <- 0.9 #heritability
-y <- g + rnorm(124,mean=0,sd=sqrt((1-h2)/h2*var(g)))
-head(y)
-dim(y)
-str(y)
-phenoEST <- y[1:100]
-phenoVal <- y[101:124]
-g
-str(M)
-marksEst <- M[1:100,]
-marksVal <- M[101:124,]
-mrkEff   <- mixed.solve(y = phenoEST, Z = marksEst)$u
-mrkEff
-gebvVec1 <- marksVal%*%mrkEff
-(predAb1 <- cor(gebvVec1, phenoVal))
-h2 <- 0.9 #heritability
-y <- g + rnorm(124,mean=0,sd=sqrt((1-h2)/h2*var(g)))
-head(y)
-dim(y)
-str(y)
-phenoEST <- y[1:100]
-phenoVal <- y[101:124]
-g
-str(M)
-marksEst <- M[1:100,]
-marksVal <- M[101:124,]
-mrkEff   <- mixed.solve(y = phenoEST, Z = marksEst)$u
-mrkEff
-gebvVec1 <- marksVal%*%mrkEff
-(predAb1 <- cor(gebvVec1, phenoVal))
-h2 <- 0.9 #heritability
-y <- g + rnorm(124,mean=0,sd=sqrt((1-h2)/h2*var(g)))
-head(y)
-dim(y)
-str(y)
-phenoEST <- y[1:100]
-phenoVal <- y[101:124]
-g
-str(M)
-marksEst <- M[1:100,]
-marksVal <- M[101:124,]
-mrkEff   <- mixed.solve(y = phenoEST, Z = marksEst)$u
-mrkEff
-gebvVec1 <- marksVal%*%mrkEff
-(predAb1 <- cor(gebvVec1, phenoVal))
-h2 <- 0.9 #heritability
-y <- g + rnorm(124,mean=0,sd=sqrt((1-h2)/h2*var(g)))
-head(y)
-dim(y)
-str(y)
-phenoEST <- y[1:100]
-phenoVal <- y[101:124]
-g
-str(M)
-marksEst <- M[1:100,]
-marksVal <- M[101:124,]
-mrkEff   <- mixed.solve(y = phenoEST, Z = marksEst)$u
-mrkEff
-gebvVec1 <- marksVal%*%mrkEff
-(predAb1 <- cor(gebvVec1, phenoVal))
-h2 <- 0.9 #heritability
-y <- g + rnorm(124,mean=0,sd=sqrt((1-h2)/h2*var(g)))
-head(y)
-dim(y)
-str(y)
-phenoEST <- y[1:100]
-phenoVal <- y[101:124]
-g
-str(M)
-marksEst <- M[1:100,]
-marksVal <- M[101:124,]
-mrkEff   <- mixed.solve(y = phenoEST, Z = marksEst)$u
-mrkEff
-gebvVec1 <- marksVal%*%mrkEff
-(predAb1 <- cor(gebvVec1, phenoVal))
-h2 <- 0.9 #heritability
-y <- g + rnorm(124,mean=0,sd=sqrt((1-h2)/h2*var(g)))
-head(y)
-dim(y)
-str(y)
-phenoEST <- y[1:100]
-phenoVal <- y[101:124]
-g
-str(M)
-marksEst <- M[1:100,]
-marksVal <- M[101:124,]
-mrkEff   <- mixed.solve(y = phenoEST, Z = marksEst)$u
-mrkEff
-gebvVec1 <- marksVal%*%mrkEff
-(predAb1 <- cor(gebvVec1, phenoVal))
-mrkEff   <- mixed.solve(y = phenoEST, Z = marksEst, K = A.mat(marksEst))
-mrkEff   <- mixed.solve(y = phenoEST, K = A.mat(marksEst))
-mrkEff
-mrkEff   <- mixed.solve(y = phenoEST, K = A.mat(marksEst))$u
-mrkEff
-gebvVec2 <- marksVal%*%mrkEff
-mrkEff   <- mixed.solve(y = phenoEST, Z = marksEst)$u
-mrkEff
-mrkEff   <- mixed.solve(y = phenoEST, K = A.mat(marksEst))
-mrkEff
-?kinship.BLUP
-data <- data.frame(y = phenoEST, gid = 1:100)
-marksEst <- M[1:100,]
-row.names(marksEst) <- 1:100
-head(data)
-A <- A.mat(M)
-A <- A.mat(marksEst)
-A
-ans <- kin.blup(data = data, geno = "gid", pheno = "y", K = A)
-str(ans)
-cor(g[1:100], ans$g)
-cor(g, ans$g)
-rownames(data.pheno.mds) <- data.pheno.mds$Row.names
-library(devtools)
-devtools::install_github("rjcmarkelz/BIS180L")
-data(eurodist)
-plot(hclust(eurodist))
-data()
-data(rivers)
-head(rivers)
-plot(hclust(rivers))
-plot(hclust(dist(rivers)))
-data(npk)
-head(npk)
-plot(hclust(dist(npk)))
-npk
-npk <- npk[,-1]
-plot(hclust(dist(npk)))
-data(Loblolly)
-head(Loblolly)
-Loblolly
-setwd("~/git.repos/BIS180L_web/")
-library(knitr)
-jekyll.knit <- function(input) {#
-    rel.path = substr(input, 6, nchar(input) - 4)#
-    output = paste("_posts/", rel.path, ".md", sep = "")#
-    knit(input = input, output = output)#
-    system(paste("perl -pi -e 's|images/|{{ site.baseurl }}/images/|gi'", output, sep = " ")) # for non-R generated figures#
-    system(paste("perl -pi -e 's|figure/|{{ site.baseurl }}/figure/|gi'", output, sep = " ")) # for R figures generated during knitting#
-}
-jekyll.knit("_rmd/2015-05-19-genetic-networks-1.Rmd")
-jekyll.knit("_rmd/2015-05-19-genetic-networks-1.Rmd")
-cities <- read.table("../data/us_cities.txt", sep = "\t", header = TRUE, row.names = TRUE)
-jekyll.knit("_rmd/2015-05-19-genetic-networks-1.Rmd")
-setwd("~/git.repos/BIS180L_web/")
-setwd("../data")
-setwd("../data/")
-setwd("./data/")
-setwd("~/git.repos/BIS180L_web/")
-jekyll.knit("_rmd/2015-05-19-genetic-networks-1.Rmd")
-jekyll.knit("_rmd/2015-05-19-genetic-networks-1.Rmd")
-jekyll.knit("_rmd/2015-05-19-genetic-networks-1.Rmd")
-cities <- read.table("/Users/Cody_2/git.repos/BIS180L_web/data/us_cities.txt", sep = "\t", header = TRUE, row.names = TRUE)
-setwd("/Users/Cody_2/git.repos/BIS180L_web/data")
-cities <- read.table("us_cities.txt", sep = "\t", header = TRUE, row.names = TRUE)
+edge.connectivity(gene_graph8)
+edge.connectivity(gene_graph8, 5)
+edge.connectivity(gene_graph8, nodes = 1:3)
+?plot.igraph
+plot.igraph(gene_graph1, mark.groups = 1:20) # this will take a while
+g <- erdos.renyi.game(100, 1/100)
+comps <- clusters(g)$membership
+colbar <- rainbow(max(comps)+1)
+V(g)$color <- colbar[comps+1]
+plot(g, layout=layout.fruchterman.reingold, vertex.size=5, vertex.label=NA)
+gene_graph1 <- graph.adjacency(genes_adj, "undirected")
+comps <- clusters(gene_graph1)$membership
+colbar <- rainbow(max(comps)+1)
+V(gene_graph1)$color <- colbar[comps+1]
+plot(gene_graph1, layout=layout.fruchterman.reingold, vertex.size=5, vertex.label=NA)
+genes_adj <- abs(genes_cor) > 0.95
+diag(genes_adj) <- 0
+sum(genes_adj)/2
+gene_graph1 <- graph.adjacency(genes_adj, "undirected")
+comps <- clusters(gene_graph1)$membership
+colbar <- rainbow(max(comps)+1)
+V(gene_graph1)$color <- colbar[comps+1]
+plot(gene_graph1, layout=layout.fruchterman.reingold, vertex.size=5, vertex.label=NA)
+genes_adj <- abs(genes_cor) > 0.90
+diag(genes_adj) <- 0
+sum(genes_adj)/2
+comps <- clusters(gene_graph1)$membership
+colbar <- rainbow(max(comps)+1)
+V(gene_graph1)$color <- colbar[comps+1]
+plot(gene_graph1, layout=layout.fruchterman.reingold, vertex.size=5, vertex.label=NA)
+genes_adj <- abs(genes_cor) > 0.85
+diag(genes_adj) <- 0
+sum(genes_adj)/2
+comps <- clusters(gene_graph1)$membership
+comps
+colbar <- rainbow(max(comps)+1)
+V(gene_graph1)$color <- colbar[comps+1]
+plot(gene_graph1, layout=layout.fruchterman.reingold, vertex.size=5, vertex.label=NA)
+gene_graph1 <- graph.adjacency(genes_adj, mode = "directed")
+comps <- clusters(gene_graph1)$membership
+comps
+colbar <- rainbow(max(comps)+1)
+V(gene_graph1)$color <- colbar[comps+1]
+plot(gene_graph1, layout=layout.fruchterman.reingold, vertex.size=5, vertex.label=NA)
+genes_adj <- abs(genes_cor) > 0.95
+diag(genes_adj) <- 0
+sum(genes_adj)/2
+genes_adj <- abs(genes_cor) > 0.90
+diag(genes_adj) <- 0
+sum(genes_adj)/2
+gene_graph1 <- graph.adjacency(genes_adj, mode = "directed")
+comps <- clusters(gene_graph1)$membership
+comps
+colbar <- rainbow(max(comps)+1)
+V(gene_graph1)$color <- colbar[comps+1]
+plot(gene_graph1, layout=layout.fruchterman.reingold, vertex.size=5, vertex.label=NA)
+genes_adj <- abs(genes_cor) > 0.85
+diag(genes_adj) <- 0
+sum(genes_adj)/2
+gene_graph1 <- graph.adjacency(genes_adj, mode = "undirected")
+?plot.igraph
+plot.igraph(gene_graph1, mark.groups = 1:20) # this will take a while
+comps <- clusters(gene_graph1)$membership
+comps
+colbar <- rainbow(max(comps)+1)
+V(gene_graph1)$color <- colbar[comps+1]
+plot(gene_graph1, layout=layout.fruchterman.reingold, vertex.size=5, vertex.label=NA)
+gene_graph8 <- graph.adjacency(genes_adj8, mode ="undirected")
+gene_graph9 <- graph.adjacency(genes_adj9, mode ="undirected")
+?difference
+genes_adj8 <- abs(genes_cor) > 0.80
+diag(genes_adj8) <- 0
+gene_graph8 <- graph.adjacency(genes_adj8, mode = "undirected")
+comps <- clusters(gene_graph8)$membership
+colbar <- rainbow(max(comps)+1)
+V(gene_graph8)$color <- colbar[comps+1]
+plot(gene_graph8, layout=layout.fruchterman.reingold, vertex.size=5, vertex.label=NA)
+genes_adj95 <- abs(genes_cor) > 0.95
+diag(genes_adj95) <- 0
+gene_graph95 <- graph.adjacency(genes_adj95, mode = "undirected")
+comps <- clusters(gene_graph95)$membership
+colbar <- rainbow(max(comps)+1)
+V(gene_graph95)$color <- colbar[comps+1]
+plot(gene_graph95, layout=layout.fruchterman.reingold, vertex.size=5, vertex.label=NA)
+genes_adj85 <- abs(genes_cor) > 0.85
+diag(genes_adj85) <- 0
+gene_graph85 <- graph.adjacency(genes_adj85, mode = "undirected")
+comps <- clusters(gene_graph85)$membership
+colbar <- rainbow(max(comps)+1)
+V(gene_graph85)$color <- colbar[comps+1]
+plot(gene_graph85, layout=layout.fruchterman.reingold, vertex.size=5, vertex.label=NA)
+plot(gene_graph85, layout=layout.fruchterman.reingold, vertex.size=6, vertex.label=NA)
+g <- barabasi.game(100, m=1)
+g2 <- barabasi.game(100, m=5)
+edge.connectivity(g, 100, 1)
+edge.connectivity(g2, 100, 1)
+edge.disjoint.paths(g2, 100, 1)
+plot(g2)
+g <- barabasi.game(25, m=1)
+g2 <- barabasi.game(25, m=5)
+edge.connectivity(g, 25, 1)
+edge.connectivity(g2, 25, 1)
+edge.disjoint.paths(g2, 25, 1)
+plot(g2)
+edge.disjoint.paths(g2, 25, 1)
+?edge.dijoint.paths
+?edge.disjoint.paths
+pa <- get.shortest.paths(g, 25, 30)[[1]]
+pa <- get.shortest.paths(genes_adj85, 25, 30)[[1]]
+pa <- get.shortest.paths(gene_graph85, 25, 30)[[1]]
+pa <- get.shortest.paths(gene_graph85, 25, 25)[[1]]
+pa
+pa <- get.shortest.paths(gene_graph85, 25, 31)[[1]]
+pa <- get.shortest.paths(gene_graph85, 25, 1)[[1]]
+pa <- get.shortest.paths(gene_graph85, 25, 2)[[1]]
+pa <- get.shortest.paths(gene_graph85, 25, 3)[[1]]
+genes_adj95 <- abs(genes_cor) > 0.95
+diag(genes_adj95) <- 0
+plot(gene_graph95)
+plot(gene_graph95, layout=layout.fruchterman.reingold, vertex.size=6, vertex.label=NA)
+plot(gene_graph95, layout=layout.fruchterman.reingold, vertex.size=6, vertex.label= TRUE)
+plot(gene_graph95, layout=layout.fruchterman.reingold, vertex.size=6)
+diameter(gene_graph95)
+diameter(gene_graph85)
+plot(degree.distribution(gene_graph85), xlab="node degree")
+graph.density(gene_graph85)
+graph.density(gene_graph85)
+length(E(gene_graph85))
+length(V(gene_graph85))
+clusters(gene_graph85)$no
+shortest.paths(gene_graph85)
+head(shortest.paths(gene_graph85))
+?get.shortest.path
+?get.shortest.paths
+names(gene_graph85)
+str(gene_graph85)
+graph.density(gene_graph85)
+length(E(gene_graph85))
+length(V(gene_graph85))
+clusters(gene_graph85)$no
+head(shortest.paths(gene_graph85))
+degree(gene_graph85)
+pa <- get.shortest.paths(gene_graph85, Bra028893, Bra021171)[[1]]
+pa <- get.shortest.paths(gene_graph85, "Bra028893", "Bra021171")[[1]]
+E <- get.edgelist(gene_graph85)
+E
+distMatrix <- shortest.paths(gene_graph85, v=V(gene_graph85), to=V(gene_graph85))
+head(distMatrix)
+pa <- get.shortest.paths(gene_graph85, 2, 6)[[1]]
+pa
+V(gene_graph85)[pa]$color <- 'green'
+E(gene_graph85)$color <- 'grey'
+E(gene_graph85, path=pa)$color <- 'blue'
+E(gene_graph85, path=pa)$width <- 3
+plot(gene_graph85, layout=layout.fruchterman.reingold)
+plot(gene_graph85, layout=layout.fruchterman.reingold, vertex.size=6,)
+V(gene_graph85)[pa]$color <- 'green'
+pa <- get.shortest.paths(gene_graph85, 2, 6)[[1]]
+pa
+V(gene_graph85)[pa]$color <- 'green'

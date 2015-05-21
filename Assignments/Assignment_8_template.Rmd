@@ -1,0 +1,51 @@
+---
+title: "Assignment 7"
+output: html_document
+---
+
+__Student Name:__
+__Student ID:__
+
+## Assignment 7: Gene Networks 2
+
+This should be a knittable .Rmd file.  Include this file, a .pdf and a .html when you turn in the assignment.
+
+**Exercise 1:**
+Based on this 0 or 1 representation of our network, what city is the most highly connected? *Hint: sum the values down a column OR across a row for each city*
+
+What if you were to extend the range to 2000 miles in the above code. Does the highest connected city change? If so explain. 
+
+**Exercise 2:**
+What is the total number of nodes in the plot? 
+What is the total number of edges in the plot?
+
+**Exercise 3:**
+Re-calculate the adjacency matrix with the cutoff value at 2300. Calculate the number of edges using the following code. What do you get?
+
+**Exercise 4:**
+Fill in the following 0 or 1 values for our gene network above.
+
+**(Gene1)--(?)--(Gene2)**
+
+**(Gene2)--(?)--(Gene3)**
+
+**(Gene1)--(?)--(Gene3)**
+
+**(Gene3)--(?)--(Gene4)**
+
+**Exercise 5:**
+Now we can do some calculations. If our cutoff is 0.85, how many edges do we have in our 255 node network? What if we increase our cutoff to 0.95?
+
+**Exercise 6:**
+Use the following code to plot our networks using different thresholds for connectivity. What patterns do you see in the visualization of this data? *Note: the second plot will take a while to render*
+
+**Exercise 7:**
+Use the following code to answer these two questions: In gene_graph85, what is the total graph density? In gene_graph85, what is the average path length? 
+
+
+**Exercise 8:**
+Using what you know about graphs, repeat your analysis of the smaller cities matrix. Show your code to answer these questions.
+What is the graph density of the cities network with a 1500 mile flight range?
+What is the average path length of the cities network with a 1500 mile flight range?
+Find the shortest path between SEA and DC with 1500 mile flight range. Graph it.
+Find the shortest path between SEA and DC with 2300 mile flight range. Graph it.
