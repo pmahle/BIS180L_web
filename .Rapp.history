@@ -1,230 +1,246 @@
-fit <- kmeans(GxE_counts, 9)
-autoplot(fit, data = GxE_counts, label = TRUE)
-?autoplot
-autoplot
-fit <- kmeans(GxE_counts, 9)
-str(fit)
-plot(fit$centers)
-clus <- as.data.frame(fit$cluster)
-head(clus)
-head(scores)
-scores <- as.data.frame(prcomp_counts$rotation)
-head(scores)
-head(clus)
-ploting <- merge(clus, scores, by.x = rownames(clus), by.y = rownames(scores))
-ploting <- merge(clus, scores, by = row.names)
-str(scores)
-str(clus)
-names(clus) <- paste("clus")
-head(clus)
-ploting <- merge(clus, scores, by = row.names)
-clus
-ggplot(data = scores, aes(x = PC1, y = PC2, label = rownames(scores))) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_text(colour = "red", alpha = 0.8, size = 4)
-scores <- as.data.frame(prcomp_counts$rotation)[,c(1,2)]
-head(scores)
-rownames(scores)
-rownames(clus)
-ploting <- merge(clus, scores, by = row.names)
-str(clus)
-str(scores)
-ploting <- merge(clus, scores)
-ploting
-ploting <- merge(clus, scores, by = 0)
-ploting
-ploting <- merge(clus, scores, by = "row.names")
-ploting
-ggplot(data = plotting, aes(x = PC1, y = PC2, label = Row.names)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_text(colour = "red", alpha = 0.8, size = 4)
-ggplot(data = ploting, aes(x = PC1, y = PC2, label = Row.names)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_text(colour = "red", alpha = 0.8, size = 4)
-ggplot(data = ploting, aes(x = PC1, y = PC2, label = Row.names)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_text(colour = "red", alpha = 0.8, size = 4)
-ggplot(data = ploting, aes(x = PC1, y = PC2, label = Row.names)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_text(colour = clus, alpha = 0.8, size = 4)
-ggplot(data = ploting, aes(x = PC1, y = PC2, label = Row.names, color = clus)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_text(alpha = 0.8, size = 4)
-# plot of observations
-ggplot(data = ploting, aes(x = PC1, y = PC2, label = Row.names, color = clus)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_point(alpha = 0.8, size = 4)
-ggplot(data = ploting, aes(x = PC1, y = PC2, label = Row.names)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_point(fill = clus, alpha = 0.8, size = 4)
-fit <- kmeans(GxE_counts, 9)
-autoplot(fit, data = GxE_counts, label = TRUE)
-ggplot(data = ploting, aes(x = PC1, y = PC2, label = Row.names, fill = clus)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_point(alpha = 0.8, size = 4) +
-scale_colour_brewer(palette="Set1")
-ggplot(data = ploting, aes(x = PC1, y = PC2, label = Row.names, color)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_point(alpha = 0.8, size = 4) +
-scale_colour_brewer(palette="Set1")
-clus
-ggplot(data = ploting, aes(x = PC1, y = PC2, label = Row.names, color = clus)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_point(alpha = 0.8, size = 4) +
-scale_colour_brewer(palette="Set1")
-ggplot(data = ploting, aes(x = PC1, y = PC2, label = Row.names, color = clus)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_point(alpha = 0.8, size = 4) +
-scale_colour_brewer()
-ggplot(data = ploting, aes(x = PC1, y = PC2, label = Row.names)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_point(alpha = 0.8, size = 4) +
-scale_colour_brewer()
-plotting <- merge(clus, scores, by = "row.names")
-ggplot(data = plotting, aes(x = PC1, y = PC2, label = Row.names)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_point(aes(fill = clus),alpha = 0.8, size = 4) +
-scale_colour_brewer()
-ggplot(data = plotting, aes(x = PC1, y = PC2, label = Row.names)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_point(aes(color = clus),alpha = 0.8, size = 4) +
-scale_colour_brewer()
-ggplot(data = plotting, aes(x = PC1, y = PC2, label = Row.names, color = clus)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_point(,alpha = 0.8, size = 4) +
-scale_colour_brewer()
-ggplot(data = plotting, aes(x = PC1, y = PC2, label = Row.names, fill = clus)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_point(,alpha = 0.8, size = 4) +
-scale_colour_brewer()
-ggplot(data = plotting, aes(x = PC1, y = PC2, label = Row.names, fill = clus)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_point(,alpha = 0.8, size = 4) +
-scale_colour_brewer()
-ggplot(data = plotting, aes(x = PC1, y = PC2, label = Row.names, fill = clus)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_point(,alpha = 0.8, size = 4)
-ggplot(data = plotting, aes(x = PC1, y = PC2, label = Row.names, fill = clus)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_text(alpha = 0.8, size = 4)
-ggplot(data = plotting, aes(x = PC1, y = PC2, label = Row.names, color = clus)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_text(alpha = 0.8, size = 4)
-geom_text(alpha = 0.8, size = 4) +
-ggplot(data = plotting, aes(x = PC1, y = PC2, label = Row.names, color = clus)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_text(alpha = 0.8, size = 4) +
-scale_colour_manual(values = clus, limits = c("4", "6", "8", "10"))
-ggplot(data = plotting, aes(x = PC1, y = PC2)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_text(alpha = 0.8, size = 4, color = clus) +
-scale_colour_manual(values = clus, limits = c("4", "6", "8", "10"))
-ggplot(data = plotting, aes(x = PC1, y = PC2)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_text(alpha = 0.8, size = 4, color = clus)
-ggplot(data = plotting, aes(x = PC1, y = PC2, label = Row.names)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_text(alpha = 0.8, size = 4, color = clus)
-d <- qplot(PC1, PC2, data=plotting, colour=clus)
-d
-d + scale_colour_brewer()
-ggplot(data = plotting, aes(x = PC1, y = PC1, label = Row.names)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_point(alpha = 0.8, size = 4, color = clus)
-ggplot(data = plotting, aes(x = PC1, y = PC1, label = Row.names)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_text(alpha = 0.8, size = 4, color = clus)
-ggplot(data = plotting, aes(x = PC1, y = PC2, label = Row.names)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_text(alpha = 0.8, size = 4, color = clus)
-ggplot(data = plotting, aes(x = PC1, y = PC2, label = Row.names)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_point(alpha = 0.8, size = 4, color = clus)
-ggplot(data = plotting, aes(x = PC1, y = PC2, label = Row.names)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_point(alpha = 0.8, size = 4, fill = clus)
-ggplot(data = plotting, aes(x = PC1, y = PC2, label = Row.names, fill = clus)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_point(alpha = 0.8, size = 4, fill = clus)
-ggplot(data = plotting, aes(x = PC1, y = PC2, label = Row.names, color = clus)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_point(alpha = 0.8, size = 4, fill = clus)
-ggplot(data = plotting, aes(x = PC1, y = PC2, label = Row.names, color = clus)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_point(alpha = 0.8, size = 4, fill = clus) +
-scale_colour_manual(values = clus, limits = c("1", "2", "3", "4", "5", "6", "7", "8", "9"))
-ggplot(data = plotting, aes(x = PC1, y = PC2, label = Row.names, color = clus)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_point(alpha = 0.8, size = 4, aes(fill = clus), stat = "identity")
-ggplot(data = plotting, aes(x = PC1, y = PC2, label = Row.names, color = clus)) +#
-  geom_hline(yintercept = 0, colour = "gray65") +#
-  geom_vline(xintercept = 0, colour = "gray65") +#
-  geom_point(alpha = 0.8, size = 4, aes(color = clus), stat = "identity")
-ggplot(data = plotting, aes(x = PC1, y = PC2, label = Row.names, color = clus)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_point(alpha = 0.8, size = 4, stat = "identity")
-str(plotting)
-plotting$clus <- as.factor(plotting$clus)
-ggplot(data = plotting, aes(x = PC1, y = PC2, label = Row.names, color = clus)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_point(alpha = 0.8, size = 4, stat = "identity")
-library(ggplot2)
-prcomp_counts <- prcomp(t(GxE_counts))
-scores <- as.data.frame(prcomp_counts$rotation)[,c(1,2)]
-set.seed(25) #make this repeatable as kmeans has random starting positions
-fit <- kmeans(GxE_counts, 9)
-clus <- as.data.frame(fit$cluster)
-plotting <- merge(clus, scores, by = "row.names")
-plotting$clus <- as.factor(plotting$clus)
-head(plotting)
-names(clus) <- paste("cluster")
-plotting <- merge(clus, scores, by = "row.names")
-head(plotting)
-plotting$cluster <- as.factor(plotting$cluster)
-plotting$cluster <- as.factor(plotting$cluster)
-names(clus) <- paste("cluster")
-plotting <- merge(clus, scores, by = "row.names")
-plotting$cluster <- as.factor(plotting$cluster)
-ggplot(data = plotting, aes(x = PC1, y = PC2, label = Row.names, color = cluster)) +
-geom_hline(yintercept = 0, colour = "gray65") +
-geom_vline(xintercept = 0, colour = "gray65") +
-geom_point(alpha = 0.8, size = 4, stat = "identity")
+phenoVal <- y[101:124]
+g
+str(M)
+marksEst <- M[1:100,]
+marksVal <- M[101:124,]
+mrkEff   <- mixed.solve(y = phenoEST, Z = marksEst)$u
+mrkEff
+gebvVec1 <- mrksVal%*%mrkEff
+gebvVec1 <- marksVal%*%mrkEff
+(predAb1 <- cor(gebvVec1, phenoVal))
+u <- rnorm(1400)
+head(u)
+g <- as.vector(crossprod(t(M),u))
+head(g)
+plot(g)
+h2 <- 0.9 #heritability
+y <- g + rnorm(124,mean=0,sd=sqrt((1-h2)/h2*var(g)))
+phenoEST <- y[1:100]
+phenoVal <- y[101:124]
+marksEst <- M[1:100,]
+marksVal <- M[101:124,]
+mrkEff   <- mixed.solve(y = phenoEST, Z = marksEst)$u
+mrkEff
+gebvVec1 <- marksVal%*%mrkEff
+(predAb1 <- cor(gebvVec1, phenoVal))
+y <- g + rnorm(124,mean=0,sd=sqrt((1-h2)/h2*var(g)))
+head(y)
+dim(y)
+str(y)
+phenoEST <- y[1:100]
+phenoVal <- y[101:124]
+g
+str(M)
+marksEst <- M[1:100,]
+marksVal <- M[101:124,]
+mrkEff   <- mixed.solve(y = phenoEST, Z = marksEst)$u
+mrkEff
+gebvVec1 <- marksVal%*%mrkEff
+(predAb1 <- cor(gebvVec1, phenoVal))
+h2 <- 0.9 #heritability
+y <- g + rnorm(124,mean=0,sd=sqrt((1-h2)/h2*var(g)))
+head(y)
+dim(y)
+str(y)
+phenoEST <- y[1:100]
+phenoVal <- y[101:124]
+g
+str(M)
+marksEst <- M[1:100,]
+marksVal <- M[101:124,]
+mrkEff   <- mixed.solve(y = phenoEST, Z = marksEst)$u
+mrkEff
+gebvVec1 <- marksVal%*%mrkEff
+(predAb1 <- cor(gebvVec1, phenoVal))
+h2 <- 0.9 #heritability
+y <- g + rnorm(124,mean=0,sd=sqrt((1-h2)/h2*var(g)))
+head(y)
+dim(y)
+str(y)
+phenoEST <- y[1:100]
+phenoVal <- y[101:124]
+g
+str(M)
+marksEst <- M[1:100,]
+marksVal <- M[101:124,]
+mrkEff   <- mixed.solve(y = phenoEST, Z = marksEst)$u
+mrkEff
+gebvVec1 <- marksVal%*%mrkEff
+(predAb1 <- cor(gebvVec1, phenoVal))
+h2 <- 0.9 #heritability
+y <- g + rnorm(124,mean=0,sd=sqrt((1-h2)/h2*var(g)))
+head(y)
+dim(y)
+str(y)
+phenoEST <- y[1:100]
+phenoVal <- y[101:124]
+g
+str(M)
+marksEst <- M[1:100,]
+marksVal <- M[101:124,]
+mrkEff   <- mixed.solve(y = phenoEST, Z = marksEst)$u
+mrkEff
+gebvVec1 <- marksVal%*%mrkEff
+(predAb1 <- cor(gebvVec1, phenoVal))
+h2 <- 0.9 #heritability
+y <- g + rnorm(124,mean=0,sd=sqrt((1-h2)/h2*var(g)))
+head(y)
+dim(y)
+str(y)
+phenoEST <- y[1:100]
+phenoVal <- y[101:124]
+g
+str(M)
+marksEst <- M[1:100,]
+marksVal <- M[101:124,]
+mrkEff   <- mixed.solve(y = phenoEST, Z = marksEst)$u
+mrkEff
+gebvVec1 <- marksVal%*%mrkEff
+(predAb1 <- cor(gebvVec1, phenoVal))
+h2 <- 0.9 #heritability
+y <- g + rnorm(124,mean=0,sd=sqrt((1-h2)/h2*var(g)))
+head(y)
+dim(y)
+str(y)
+phenoEST <- y[1:100]
+phenoVal <- y[101:124]
+g
+str(M)
+marksEst <- M[1:100,]
+marksVal <- M[101:124,]
+mrkEff   <- mixed.solve(y = phenoEST, Z = marksEst)$u
+mrkEff
+gebvVec1 <- marksVal%*%mrkEff
+(predAb1 <- cor(gebvVec1, phenoVal))
+h2 <- 0.9 #heritability
+y <- g + rnorm(124,mean=0,sd=sqrt((1-h2)/h2*var(g)))
+head(y)
+dim(y)
+str(y)
+phenoEST <- y[1:100]
+phenoVal <- y[101:124]
+g
+str(M)
+marksEst <- M[1:100,]
+marksVal <- M[101:124,]
+mrkEff   <- mixed.solve(y = phenoEST, Z = marksEst)$u
+mrkEff
+gebvVec1 <- marksVal%*%mrkEff
+(predAb1 <- cor(gebvVec1, phenoVal))
+h2 <- 0.9 #heritability
+y <- g + rnorm(124,mean=0,sd=sqrt((1-h2)/h2*var(g)))
+head(y)
+dim(y)
+str(y)
+phenoEST <- y[1:100]
+phenoVal <- y[101:124]
+g
+str(M)
+marksEst <- M[1:100,]
+marksVal <- M[101:124,]
+mrkEff   <- mixed.solve(y = phenoEST, Z = marksEst)$u
+mrkEff
+gebvVec1 <- marksVal%*%mrkEff
+(predAb1 <- cor(gebvVec1, phenoVal))
+mrkEff   <- mixed.solve(y = phenoEST, Z = marksEst, K = A.mat(marksEst))
+mrkEff   <- mixed.solve(y = phenoEST, K = A.mat(marksEst))
+mrkEff
+mrkEff   <- mixed.solve(y = phenoEST, K = A.mat(marksEst))$u
+mrkEff
+gebvVec2 <- marksVal%*%mrkEff
+mrkEff   <- mixed.solve(y = phenoEST, Z = marksEst)$u
+mrkEff
+mrkEff   <- mixed.solve(y = phenoEST, K = A.mat(marksEst))
+mrkEff
+?kinship.BLUP
+data <- data.frame(y = phenoEST, gid = 1:100)
+marksEst <- M[1:100,]
+row.names(marksEst) <- 1:100
+head(data)
+A <- A.mat(M)
+A <- A.mat(marksEst)
+A
+ans <- kin.blup(data = data, geno = "gid", pheno = "y", K = A)
+str(ans)
+cor(g[1:100], ans$g)
+cor(g, ans$g)
+rownames(data.pheno.mds) <- data.pheno.mds$Row.names
+library(devtools)
+devtools::install_github("rjcmarkelz/BIS180L")
+data(eurodist)
+plot(hclust(eurodist))
+data()
+data(rivers)
+head(rivers)
+plot(hclust(rivers))
+plot(hclust(dist(rivers)))
+data(npk)
+head(npk)
+plot(hclust(dist(npk)))
+npk
+npk <- npk[,-1]
+plot(hclust(dist(npk)))
+data(Loblolly)
+head(Loblolly)
+Loblolly
+genes <- read.table("/Users/Cody_2/git.repos/BIS180L_web/data/voom_transform_brassica.csv", sep = ",", header = TRUE)
+genes <- genes[,-c(38,42,46)] # remove questionable library columns
+DE_genes <- read.table("/Users/Cody_2/git.repos/BIS180L_web/data/DEgenes_GxE.csv", sep = ",")
+DE_gene_names <- rownames(DE_genes)
+genes_cor <- cor(t(genes))
+GxE_counts <- as.data.frame(genes[DE_gene_names,])
+genes_cor <- cor(t(GxE_counts))
+hist(genes_cor[upper.tri(genes_cor)]) # slightly right skewed
+genes_adj <- abs(genes_cor) > 0.85
+diag(genes_adj) <- 0
+genes_adj95 <- abs(genes_cor) > 0.95
+diag(genes_adj95) <- 0
+cities <- read.table("/Users/Cody_2/git.repos/BIS180L_web/data/us_cities.txt", sep = "\t", header = TRUE)
+rownames(cities) <- cities$X #make first column the rownames
+cities <- cities[,-1] #remove first column
+cities <- as.matrix(cities) #convert to matrix
+cities # print matrix
+cities_mat <- cities # leave original matrix intact
+cities_mat[cities <= 1500] <- 1
+cities_mat[cities >= 1500] <- 0
+diag(cities_mat) <- 0 # we do not have to fly within each of cities :)
+cities_mat # check out the adjacency matrix
+install.packages("igraph") # Download and install the package
+library(igraph) # load package
+# make sure to use the 2000 mile distance cutoff
+cities_graph2 <- graph.adjacency(cities_mat, "undirected")
+plot.igraph(cities_graph2)
+sum(cities_mat)/2 # divide by 2 because the matrix has 2 values for each edge
+genes <- read.table("/Users/Cody_2/git.repos/BIS180L_web/data/voom_transform_brassica.csv", sep = ",", header = TRUE)
+genes <- genes[,-c(38,42,46)] # remove questionable library columns
+DE_genes <- read.table("/Users/Cody_2/git.repos/BIS180L_web/data/DEgenes_GxE.csv", sep = ",")
+GxE_counts <- as.data.frame(genes[DE_gene_names,])
+DE_gene_names <- rownames(DE_genes)
+genes_cor <- cor(t(GxE_counts))
+diag(genes_adj) <- 0
+# take a look at the distibution of gene gene correlations
+genes_adj <- abs(genes_cor) > 0.85
+hist(genes_cor[upper.tri(genes_cor)]) # slightly right skewed
+genes_adj95 <- abs(genes_cor) > 0.95
+diag(genes_adj95) <- 0
+gene_graph95 <- graph.adjacency(genes_adj95, mode = "undirected")
+plot(gene_graph95, layout=layout.fruchterman.reingold, vertex.size=6)
+comps <- clusters(gene_graph95)$membership
+colbar <- rainbow(max(comps)+1)
+V(gene_graph95)$color <- colbar[comps+1]
+plot(gene_graph95, layout=layout.fruchterman.reingold, vertex.size=6, vertex.label=NA)
+genes_adj85 <- abs(genes_cor) > 0.85
+diag(genes_adj85) <- 0
+gene_graph85 <- graph.adjacency(genes_adj85, mode = "undirected")
+comps <- clusters(gene_graph85)$membership
+colbar <- rainbow(max(comps)+1)
+V(gene_graph85)$color <- colbar[comps+1]
+plot(gene_graph85, layout=layout.fruchterman.reingold, vertex.size=6, vertex.label=NA)
+graph.density(gene_graph85)
+length(E(gene_graph85))
+length(V(gene_graph85))
+clusters(gene_graph85)$no
+head(shortest.paths(gene_graph85))
 setwd("~/git.repos/BIS180L_web/") #Julin
 library(knitr)
 jekyll.knit <- function(input) {#
@@ -234,26 +250,7 @@ jekyll.knit <- function(input) {#
     system(paste("perl -pi -e 's|images/|{{ site.baseurl }}/images/|gi'", output, sep = " ")) # for non-R generated figures#
     system(paste("perl -pi -e 's|figure/|{{ site.baseurl }}/figure/|gi'", output, sep = " ")) # for R figures generated during knitting#
 }
-jekyll.knit("_rmd/2015-05-19-genetic-networks-1.Rmd")
-jekyll.knit("_rmd/2015-05-19-genetic-networks-1.Rmd")
-install.packages("pvclust")
-library(pvclust)
-?clusGap
-install.packages("cluster")
-library(cluster)
-set.seed(125)
-gap <- clusGap(GxE_counts, FUN = kmeans, iter.max = 30, K.max = 23, B = 500, verbose=interactive())
-set.seed(125)
-gap <- clusGap(GxE_counts, FUN = kmeans, iter.max = 30, K.max = 23, B = 50, verbose=interactive())
-plot(gap, main = "Gap Statistic")
-with(gap, maxSE(Tab[,"gap"], Tab[,"SE.sim"], method="globalmax"))
-gap <- clusGap(GxE_counts, FUN = kmeans, iter.max = 30, K.max = 23, B = 50, verbose=interactive())
-plot(gap, main = "Gap Statistic")
-with(gap, maxSE(Tab[,"gap"], Tab[,"SE.sim"], method="globalmax"))
-gap <- clusGap(GxE_counts, FUN = kmeans, iter.max = 30, K.max = 15, B = 50, verbose=interactive())
-plot(gap, main = "Gap Statistic")
-with(gap, maxSE(Tab[,"gap"], Tab[,"SE.sim"], method="globalmax"))
-?maxSE
-gap <- clusGap(GxE_counts, FUN = kmeans, iter.max = 30, K.max = 20, B = 50, verbose=interactive())
-plot(gap, main = "Gap Statistic")
-with(gap, maxSE(Tab[,"gap"], Tab[,"SE.sim"], method="firstSEmax"))
+# .Rmd files in _rmd directory
+# Usage example:
+# jekyll.knit("_rmd/2013-XX-XX-post-name.Rmd")
+jekyll.knit("_rmd/2015-05-21-genetic-networks-2.Rmd")
