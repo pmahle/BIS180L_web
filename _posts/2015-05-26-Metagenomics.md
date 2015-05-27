@@ -25,7 +25,7 @@ Alpha vs beta diversity
 
 ## QQ for Julin
 - Nipponbare early vs late? is this young and older plants? or time of year? or time of day?
-
+- Should the sampling depth be considered treatment or environment?
 ____
 # Assignment
 
@@ -43,7 +43,7 @@ Today we will walk through a common metagenomics workflow using QIIME (pronounce
 2. Calculate the diversity within our sample (alpha diversity)
 3. Calculate the diversity between different sample types (beta diversity)
 
-*Acknowledgement must be paid to Professor Scott Dawson for sharing his original metagenomics lab that we have adapted for this class*
+*Acknowledgement must be paid to Professor Scott Dawson for sharing his original metagenomics lab that we have adapted for this class and to the Sundaresan Lab for sharing this data.*
 
 ## Getting Started with QIIME
 Quantitative Insights Into Microbial Ecology or QIIME is an open-source bioinformatics pipeline for performing microbiome analysis from raw DNA sequencing data. It has been cited by over 2,500 peer-reviewed journals since its [publication](http://www.nature.com/nmeth/journal/v7/n5/full/nmeth.f.303.html) in 2010.  
@@ -51,27 +51,35 @@ Quantitative Insights Into Microbial Ecology or QIIME is an open-source bioinfor
 QIIME requires many dependencies which can make installing it a bit of headache. However, the developers of QIIME have made a standalone Virtual Box with a complete install. Even though, we know you're install pros we will be working with this more convenient setup. The QIIME Virtual Box has been downloaded to the desktop in SLB2020
 
 + Plug in your USB to a lab computer
-+ Transfer the folder titled QIIME to your USB by dragging and dropping (or copy and pasting).
-+ This will take 15 minutes or so. 
++ Transfer the folder c:\QIIME to your USB by dragging and dropping (or copy and pasting).
++ The folder should be ~12GB so the transfer will take 15 minutes or so. 
++ Once the transfer completes, you should be able to double click the QIIME.vbox file to run the Virtual Machine
 + The **password** for the QIIME Virtual Box is qiime
 + QIIME is very RAM heavy. Therefore, some of the steps you'll complete today will take a couple of minutes to run. Please be patient.
+
+You will also need to clone your assignments repository so that you can submit your work. You should be pros at this by now but just in case:
+
++ Go your BIS180L\_Asssignments\_First.Last repository on Github.com
++ Copy the link to clone your repository via HTTPS. See image below  
+![screenshot of git clone]({{ site.baseurl }}/figure/metagenomics_lab-clone_explanation.png) 
++ Enter the following on the command line:
+
+```bash
+git clone [fill in your link to HTTPS repo]
+```
++ Then `cd` into your BIS180L\_Assignments.First.Last/Assignment\_8 directory. There will be an assignment template there for today's lab.
 
 
 ## Background for our Data
 Today, we will be working with the samples collected from the rhizosphere of rice plants. The rhizosphere is an area of soil near the plant roots that contains both bacteria and other microbes associated with roots as well as secretions from the roots themselves. See diagram below from [Phillppot et al., *Nature*, 2013](http://www.nature.com/nrmicro/journal/v11/n11/full/nrmicro3109.html).
 ![plot of rhizosphere]({{ site.baseurl }}/figure/metagenomics_lab-1-rhizosphere.jpg) 
 
-Samples were collected and sequenced XXX TODO. We will be working with the sequencing results in `RiceSeqs.fna` and sample information in `RiceMappingFile.txt`. These are already downloaded to the QIIME Virtual Box in `~/Desktop/Data`.
-16S rRNA profiling
-
-From Julin: 454 sequence data (remember them). 16S sequences from samples taken within the root, at the root surface, near the root, and then in soil further away. There should be a clear spatial signal.
-
-The data we will be using for this lab has already been installed on the desktop of the QIIME virtual box. The barcodes have been removed. TODO add in more info about the data set.
+In order to classify microbial diversity, metagenomics often relies on sequencing 16S ribosomal RNA which is the small subunit (SSU) of the prokaryotic ribosome. This region has a slow rate of evolution and therefore can be advantageous in constructing phylogenies. For this lab, samples for various soil depths and cultivars were sequenced with 454 pyrosequencing. The de-multiplexed reads that we will be working with are in `RiceSeqs.fna`, and the sample information is in `RiceMappingFile.txt`. These are already downloaded to the QIIME Virtual Box in `~/Desktop/Data`.
 
 ## Explore and Quality Control Data
 Often times, as bioinformaticians, we will receive data sets with little background. Sometimes the first step is to explore the raw data that we will be working with. This can help us spot inconsistencies or logical fallacies down the line when working with more automated pipelines.  
 
-Open RiceMappingFile.txt with `less` to view more information about the data you are working with. This file contains information about each sample including the cultivar, treatment, and number of technical replicates. It also includes the barcodes used to identify each sample during multiplexing which should be in a 1:1 ratio. Let's use the barcodes to determine if we have an even number of reads per sample type.  
+Open RiceMappingFile.txt with `less` to view more information about the data you are working with. This file contains information about each sample including the cultivar, treatment, and number of technical replicates. It also includes the barcodes used to identify each sample during multiplexing. Let's use the barcodes to determine if we have an similar number of reads per sample ID.  
 
 In the RiceSeqs.fna file, barcodes for each sequence are indicated in the header with `new_bc=`. These barcodes are also mapped to the sample information in RiceMapping.txt. Try to determine the number of sequences present for each barcode. This can be accomplished using just Linux/Unix commands. I'll start by giving you the tools, so you can try to piece together the command on your own. 
 
@@ -93,7 +101,7 @@ MB1 & MB2 have the lowest - root, M04 cultivar, root surface
 Now that we've poked around in our raw data a little. Let's carry on with analyzing the microbes present in our samples.
 
 ## Classify Various Microbiome Sequences into OTUs
-Operational taxonomical units (OTUs) are used to describe the various microbial species in a sample. OTUs are defined as a cluster of reads with 97% 16S rRNA sequence identity. We will use QIIME to classify OTUs into an OTU table.
+Operational taxonomical units (OTUs) are used to describe the various microbes in a sample. OTUs are defined as a cluster of reads with 97% 16S rRNA sequence identity. We will use QIIME to classify OTUs into an OTU table.
 
 ```bash
 cd ~/Desktop 
@@ -115,8 +123,6 @@ From the OTU summary, look at how many OTUs correspond to each sample ("counts/s
 *Note:* The OTUs actually match 1:1 with the number of sequences per sample ID/barcode. This is an artifact of creating the smallest demo data set to use on the Virtual Boxes. The OTUs are still representative of the microbial diversity in that sample though.
 
 Exercise 2 KEY
-Scott's original question  
-What is the minimum/maximum of OTUs in all samples? Are there significant differences between the samples? If so, why do you think?  
 Min = IE1 289  
 Max = IM2 4880  
 36155 total OTUs  
@@ -129,346 +135,151 @@ make_otu_heatmap.py -i otus/otu_table.biom -o otus/OTU_Heatmap.pdf
 ```
 
 **Exercise 3**
-Although, the resolution of the y-axis makes it different to read each OTU, it is still a valuable preliminary visualization. What types of information can you gain from this heat map? Are there any trends present at this stage with respect to the various samples?
+Although, the resolution of the y-axis makes it difficult to read each OTU, it is still a valuable preliminary visualization. What types of information can you gain from this heat map? Are there any trends present at this stage with respect to the various samples?  
 
-Now we'd like to visualize our data with a little higher resolution and summarize the communities by their taxonomic composition.
+Now we'd like to visualize our data with a little higher resolution and summarize the communities by their taxonomic composition. Use the following command to generate box and area plots to describe our samples.
 
 ```bash
 summarize_taxa_through_plots.py -i otus/otu_table.biom -o otus/wf_taxa_summary -m Data/RiceMappingFile.txt
 ```
-`-m` provides the path to the mapping file with sample meta data
+`-m` provides the path to the mapping file with sample meta data  
 
-Summarize OTU by Category (optional, pass -c); Summarize Taxonomy; and Plot Taxonomy Summary
+Double click the HTML files in the `wf_taxa_summary/taxa_summary_plots` folder. These should open in your browser. Take a look at the different plots and tables that are generated. If it's hard to view the whole file, each of the plots are saved as PDFs in the `charts` folder within `taxa_summary_plots`.
 
-From the bar charts, which groups are the predominant phyla in the different samples? Are there any predominant groups unique to particular samples? Do you have any explanations for any of the observed differences between the different samples?
+This is a helpful visualization but QIIME offers even more power. There is another command line option to group the bar plots based on a shared characteristic. Open the help page (`-h`) or the QIIME documentation online for `summarize_taxa_through_plots.py`. Can you figure out which option you should use to change the summarization?
 
+Give it your best shot and then highlight below this sentence to reveal how to summarize the OTU by category.
+<font color="white" face="menlo">
+summarize_taxa_through_plots.py -i otus/otu_table.biom -o otus/wf_taxa_summary_by_treatment -m Data/RiceMappingFile.txt -c Treatment
+summarize_taxa_through_plots.py -i otus/otu_table.biom -o otus/wf_taxa_summary_by_cultivar -m Data/RiceMappingFile.txt -c Cultivar
+</font>
 
-5. Compute alpha diversity-generate rarefaction curves
+**Exercise 4**
+__a.__ When comparing by treatment, which groups are the predominant phyla in the different samples? (Remember phyla is designated by "_p".) Are there any predominant groups unique to particular sample treatments?
+
+Exercise 4 KEY
+Predominant: proteobacteria and actinobaceria are prominant in all samples and to a lesser extent bacteroides
+Unique: gemmatimonadetes and verrucomicrobia are unique to 1mm soil, sphirochaetes is unique to root_inside
+
+__b.__ When comparing by cultivar, are the predominant phyla consistent with those observed in Part A? Are there any predominant phyla unique to a specific cultivar? What does this indicate to you about the effect of the genotype and/or the effect of the treatment?
+
+Exercise 4 KEY
+Yes lots of actinobacteria and proteobacteria
+No unique phyla
+There is a treatment effect but no genotype effect
+
+## Determine the Diversity Within a Sample
+Now that we know a little more information about the OTUs in our sample, we'd like to calculate the diversity within a sample-the alpha diversity- and between our samples-beta diversity.
+
+Alpha diversity tells us about the richness of species diversity within our sample. It will quantify how many taxa are in one sample and allow us to answer questions like "Are polluted environments less diverse than pristine?". There are more than two dozen different established metrics to calculate the alpha diversity. We will start with a small subset of methods. Feel free to read more details about other metrics [here](http://scikit-bio.org/docs/latest/generated/skbio.diversity.alpha.html).  
+
+Compute the alpha diversity by generating rarefaction curves.
 
 ```bash
+# first we must generate a file with parameters to be passed to the QIIME rarefaction script
 echo “alpha_diversity:metrics shannon,PD_whole_tree,chao1,observed_species” > otus/alpha_params.txt
+
+# make sure your file has been written to properly
+less otus/alpha_params.txt
+
+
 alpha_rarefaction.py –i otus/otu_table.biom –m Data/RiceMappingFile.txt –o otus/wf_arare -p otus/alpha_params.txt –t otus/rep_set.tre
 ```
-First, we make the file that tells contains the parameters to make the alpha rarefaction. Then we calculate it.
-Lots of helpful info in this plot
+`-m` passes the mapping information such as treatment or cultivar
+`-p` passes the parameters used to calculate the alpha diversity
+`-t` passes the path to the phylogenetic tree file
 
-6. Compute beta diversity and generate PCOA plots and UPGMA trees
+As we noted before, there are a different number of sequences per sample. When quantifying the within sample diversity, this could cause difficulties. However, we will perform *in silico* rarefaction analysis that will account for this. Rarefaction provides a method of comparison between different communities, whereby each community is "rarefied" back to an equal number of sampled specimens. For example, a rarefaction with a depth of 75 reads per sample is a simulation of what your sequencing results would look like if you sequenced exactly 75 reads from each sample. To look at alpha diversity systematically, we will performed many rarefactions to investigate the richness of our samples.
 
-PCOA plots:
+Open the `rarefaction_plots.html` and test different parameters to plot the metric tested against a category such as Sample ID, Treatment, or Cultivar.
+
+**Exercise 5**
+__a.__ Is there a metric that displays a different estimation of our sample diversity? If so, which one is it? Does this metric estimate a higher or lower sample diversity compared to the other metrics?
+
+Exercise 5 key
+yes, shannon entropy, it estimates higher sample diversity
+
+__b.__ With Sample ID as the category, have we sequenced the full diversity of the various sites for all samples? How do you know? Please indicate which metric(s) you used for your answer.
+
+Exercise 5 KEY
+Plots are still linear and have not reached a plateau indicating that complete sampling depth has not been achieved.
+
+__c.__ For Cultivar and Treatment, have we sequenced the full diversity of the various sites for all samples? How do you know?
+
+
+Maybe Question--Which treatment had higher phylogenetic diversity? Which cultivar had higher phylogenetic diversity?
+
+
+Now we will look at the diversity between our samples which is known as the beta diversity by plotting principal components and UPGMA trees.
+
+
+## Determine the Diversity Between Samples
+
+The definition of the term beta diversity has become quite contentious amongst ecologists. For the purpose of this lab, we will define beta diversity as the differentiation amongst habitats which is the practical definition QIIME uses. To quantify beta diversity, QIIME calculates the pairwise dissimilarity between samples resulting in a distance matrix. For more information about other definitions/uses of beta diversity, see the [wikipedia page](http://en.wikipedia.org/wiki/Beta_diversity).
+
+Now we can compute the beta diversity and generate PCoA plots.
+
 ```bash
-beta_diversity_through_plots.py –i otus/otu_table.biom –m RiceMappingFile.txt –o wf_bdiv_even289 -t otus/rep_set.tre –e 289
+beta_diversity_through_plots.py –i otus/otu_table.biom –m Data/RiceMappingFile.txt –o wf_bdiv_even289 -t otus/rep_set.tre –e 289
 ```
-You may see a negative Eigenvalue error, but the negative values are 100x smaller than the positive values so we can ignore the warning.
-QQ - what is 289 doing?
-QQ - is there a 2D output do we need a different option?
+*Note:* You may see an error about negative Eigenvalues, but the negative values are ~100x smaller than the positive values so we can ignore the warning.  
 
-UPGMA trees
+`-e` sets the sequencing depth per sample  
+
+Why do you think we set the sequencing depth at 289 reads? That is the minimum number of sequences among any sample. This will ensure that there is not an artificial bias by some samples having higher read depth.
+
+This script returns a distance matrix and principal coordinate analysis (PCoA) plots. PCoA can also be called multidimensional scaling as you have seen. For more information the differences between PCoA and PCA, check out this [helpful blog post[(http://occamstypewriter.org/boboh/2012/01/17/pca_and_pcoa_explained/) or [this course website](http://ordination.okstate.edu/overview.htm#Principal_coordinates_analysis).
+
+The dissimilarity between samples is measured by the UniFrac method which calculates the phylogenetic distance between sets of taxa. Weighted UniFrac (opposed to unweighted) accounts for the relative abundance of each taxa within the communities.
+
+**Exercise 6**  
+__a.__Open the weighted and unweighted PCoA plots by double clicking the index.html in their respective folders. How does adjusting the PCoA plots for taxa abundance (weighted) affect the clustering and principal coordinates?  
+*Hint* On the colors tab, explore coloring by cultivar, treatment, etc.
+*Note:* These plots are very RAM heavy. You could email yourself the zipped `bf_bdiv_even289` folder and view them on the Windows machine, if the plots aren't working well on the Virtual Box.
+
+Exercise 6 key
+PC1 in in unweighted explains 16.96% whereas in the weighted it explains 32.81%. It also makes the Nipponbare early cultivar cluster more tightly. 
+
+1mm soil switches from PC1 to PC2. The root in and out now have more abundance and therefore explain more variance.
+
+__b.__ What are the significant correlations of particular samples? Does cultivar or treatment appear to have more of an influence on the clustering?  
+*Hint* you can add labels to the plot to help visualize both characteristics at once.
+
+Exercise 6 KEY
+1mm soil separates clearly from the root inside or root outside. The samples do not cluster strongly by cultivar
+
+
+The distance matrix generated for beta diversity can also be used to make UPGMA trees. UPGMA is a simple hierarchical clustering method and can be used to classify sampling units on the basis of pairwise similarities.
+
+Let's utilize the beta diversity to generate UPGMA trees.
 ```bash
 ￼upgma_cluster.py –i wf_bdiv_even289/unweighted_unifrac_dm.txt –o
 ￼unweighted_upgma.tre
 ￼upgma_cluster.py –i wf_bdiv_even289/weighted_unifrac_dm.txt –o
 ￼weighted_upgma.tre
 ```
-The files saved here are the distances used to form a tree of the samples
-Upload them to http://iubio.bio.indiana.edu/treeapp/treeprint-form.html
-"Phenogram" will be the most useful display
+Upload the weighted and unweighted UPGMA trees to [Phylodendron](http://iubio.bio.indiana.edu/treeapp/treeprint-form.html). "Phenogram" and "Tree diag" provide useful displays.
 
+**Exercise 7**  
+Which sites cluster together (are more similar)? Which sites are different? How would you explain this pattern of diversity?
 
 
 
+**Exercise 8**
+Discuss some of the potential physiologies of the predominant groups of microbes correlated with the various rice microbiome samples. This information can be taken from the displays in Exercise 3.
+*Hint* Use [MicrobeWiki](http://microbewiki.kenyon.edu/index.php/MicrobeWiki) or other online sites to learn more about these microbes.
 
 
 
-Use MicrobeWiki (or other online sites to learn more about these microbes) o http://microbewiki.kenyon.edu/index.php/MicrobeWiki
 
-_____
 
-## Annotate the differentially expressed genes.
+Note - alpha and beta are workflow scripts. This may be a good final question to apply to another week.
 
-As part of [his B_rapa annotation paper](http://www.g3journal.org/content/4/11/2065.long) a postdoc in my lab, Upendra Devisetty, did a quick annotation of the _B. rapa_ genes by BLASTing each gene to the NCBI non-redundant database and taking the gene description of the best match (above a threshold). You can download the description with this command:
 
-    wget http://www.g3journal.org/content/suppl/2014/08/12/g3.114.012526.DC1/FileS9.txt
-  
-Place the file into your `Brapa_reference` directory.
-  
-Now open Rstudio, set the working directory to your `Diff_Exp` directory, and proceed.
-  
-__Exercise 1__
-
-__a.__ Use `merge()` to add gene descriptions for the genes found to be regulated by the DP treatment.  Output a table of the top 10 genes that includes the output from edgeR and the descriptions.  __Important: Pay attention to the "sort="" argument to `merge()`.  Should it be TRUE or FALSE?
-
-__b.__ Repeat this for  genes with a genotype x trt interaction.
-
-
-
-By looking at the annotated interaction gene list we can see that many of the identified genes code for proteins that modify the plant cell wall (I wouldn't expect you to know this unless you are a plant biologist).  This might relate to the different properties of the two cultivars, IMB211 and R500, and their different responses to the treatment.  Depending on our interests and knowledge of the system we might at this point choose follow up study on specific genes.
-
-## Test for enrichment of functional classes of genes.
-
-A casual glance indicated that there might be an enrichment for cell wall related genes in  the gt X trt DE gene list.  We can test this more rigorously by asking if there is statistical over-representation of particular [Gene Ontology (GO)](http://geneontology.org/) terms in this set of genes.  GO terms provide a precise, defined language to describe gene function.
-
-To test for test for enrichment of GO terms we essentially ask the question of whether the prevalence of a term in our gene set of interest is higher than its prevalence in the rest of the genome (aka the universe).  For example if 20% of the differentially expressed genes have the GO term "Cell Wall" but only 10% of the not-differentially expressed genes have the term Cell Wall that the term "Cell Wall" might be over-represented, or enriched, in our differentially expressed genes.  In principle this could be tested using a [Chi-squared test](http://www.biostathandbook.com/chiind.html) or [Fisher's exact test](http://www.biostathandbook.com/fishers.html) for contingency tables.  In practice we will use [GOseq](http://www.bioconductor.org/packages/release/bioc/html/goseq.html) that [makes an adjustement for gene-length bias](http://genomebiology.com/2010/11/2/r14) since it is easier to detect differential expression of longer genes.  
-
-It is important in these analyses to define the "Universe" correctly.  The Universe of genes is all of the genes where you could have detected an expression difference.  It would not have been possible to detect an expression difference in genes that were not expressed at a detectable level in our experiment.  So the Universe in this case is all expressed genes, rather than all genes.
-
-### Install GOseq
-
-
-```r
-source("http://bioconductor.org/biocLite.R")
-biocLite("goseq")
-```
-
-### Download the GO annotation and gene length for B.rapa
-
-GO term annotation for _B. rapa_ is also available from the [Devisetty et al paper](http://www.g3journal.org/content/4/11/2065.long).
-
-cDNA gene lengths were estimated by the `featureCounts()` command used in Tuesday's lab.  I have saved them for you and you can download them as instructed below.  (You're welcome)
-
-Download the files using the commands below (in Linux) and place the file in your `Brapa_reference` directory.
-
-GO terms:
-
-    wget http://www.g3journal.org/content/suppl/2014/08/12/g3.114.012526.DC1/FileS11.txt
-    
-Gene Length:
-
-    wget http://jnmaloof.github.io/BIS180L_web/data/Brapa_CDS_lengths.txt
-  
-### Format data for GOseq
-
-We need to do a bit of data wrangling to get things in the correct format for GOSeq.  First we import the gene lengths and GO terms.  We also import a table of all expressed genes in the experiment (you could have gotten this from Tuesday's data)
-
-Get the data
-
-```r
-library(goseq)
-go.terms <- read.delim("../Brapa_reference/FileS11.txt",header=FALSE,as.is=TRUE)
-head(go.terms)
-names(go.terms) <- c("GeneID","GO")
-summary(go.terms)
-
-expressed.genes <- read.delim("internode_expressed_genes.txt",as.is=TRUE)
-head(expressed.genes)
-names(expressed.genes) <- "GeneID"
-
-gene.lengths <- read.table("../Brapa_reference/Brapa_CDS_lengths.txt",as.is=TRUE)
-head(gene.lengths)
-summary(gene.lengths)
-
-#we need to reduce the gene.length to only contain entries for those genes in our expressed.genes set.  We also need this as a vector
-gene.lengths.vector <- gene.lengths$Length[gene.lengths$GeneID %in% expressed.genes$GeneID]
-names(gene.lengths.vector) <- gene.lengths$GeneID[gene.lengths$GeneID %in% expressed.genes$GeneID]
-head(gene.lengths.vector)
-
-#Do the reverse to make sure everyting matches up (it seems that we don't have length info for some genes?)
-expressed.genes.match <- expressed.genes[expressed.genes$GeneID %in% names(gene.lengths.vector),]
-```
-
-Format go.terms for goseq.  We want them in list format, and we need to separate the terms into separate elements.
-
-```r
-go.list <- strsplit(go.terms$GO,split=",")
-names(go.list) <- go.terms$GeneID
-head(go.list)
-```
-
-Format gene expression data for goseq.  We need a vector for each gene with 1 indicating differential expression and 0 indicating no differential expression.
-
-```r
-DE.interaction <- expressed.genes.match %in% rownames(DEgene.interaction) 
-    #for each gene in expressed gene, return FALSE if it is not in DEgene.trt and TRUE if it is.
-names(DE.interaction) <- expressed.genes.match
-head(DE.interaction)
-DE.trt <- as.numeric(DE.interaction) #convert to 0s and 1s
-head(DE.interaction)
-sum(DE.interaction) # number of DE genes
-```
-
-### Calculate over-representation
-
-Now we can look for GO enrichment
-
-```r
-#determines if there is bias due to gene length.  The plot shows the relationship.
-nullp.result <- nullp(DEgenes = DE.interaction,bias.data = gene.lengths.vector)
-
-#calculate p-values for each GO term
-rownames(nullp.result) <- names(gene.lengths.vector) #because of a bug in nullp()
-GO.out <- goseq(pwf = nullp.result,gene2cat = go.list,test.cats=("GO:BP"))
-
-#list over-represented GO terms (p < 0.05)
-GO.out[GO.out$over_represented_pvalue < 0.05,]
-```
-
-### GO visualization
-
-Looking through a long list can be tough.  There is a nice visualizer called [REVIGO](http://revigo.irb.hr/).  To use it we need to cut and paste the column with the GO term and the one with the p-value.  Use the command below to print these to columns to the console:
-
-
-```r
-print(GO.out[GO.out$over_represented_pvalue < 0.05,1:2],row.names=FALSE)
-```
-
-Cut and paste the GO terms and p-values into [REVIGO](http://revigo.irb.hr/).  You can use the default settings.  There are three types of GO terms:
-
-* Biological Process (BP)
-* Cellular Compartment (CC)
-* Molecular Functions (MF)
-
-Generally I find the BP terms most helpful but you can look at each type by clicking in the tabs.
-
-REVIGO has three types of visualizers.  The "TreeMap"  Can be particular nice because it groups the GO terms into a hierarchy.
-
-__Exercise 2__:  
-
-__a:__ In REVIGO display a "TreeMap" of the BP GO terms.  Was our hypothesis that cell wall genes are enriched in the genotype X treatment gene set correct?  You DO NOT need to include the treemap in your answer.
-
-__b:__ Display a "TreeMap" of the CC GO terms.  There are four general categories shown, some with sub-categories.  What are the two general categories with the largest number of sub categories?  How might these general categories relate to differences in plant growth?  You DO NOT need to include the treemap in your answer.
-
-## Promoter motif enrichment
-
-To help us understand what causes these genes to be differentially expressed it would be helpful to know if they have any common transcription factor binding motifs in their promoters.
-
-First we must get the sequence of the promoters.  For ease we will define the promoters as the 1000bp upstream of the start of the gene.  In the interest of time I have pre-computed this for you, but I show you how to do this below in case you need to do it in the future.
-
-### Get gene "promoters".
-
-__You do not need to run this__
-
-To extract the promoters I used Mike Covington's [extract-utr script](https://github.com/mfcovington/extract-utr) and downloaded the CDS as file S4 from [Devisetty et al](http://www.g3journal.org/content/4/11/2065.long)
-
-The command I used was
-```
-extract-utr.pl --gff_file=Brapa_gene_v1.5.gff \
---genome_fa_file=BrapaV1.5_chrom_only.fa  \
---cds_fa_file=Brassica_rapa_final_CDS.fa  \
---fiveprime --utr_length=1000 --gene_length=0 \
---output_fa_file=BrapaV1.5_1000bp_upstream.fa
-```
-
-### Gather data for motif enrichment
-
-First lets gather the data that we need.  you do need to run the following.
-
-Download the promoters and place them in your `Brapa_reference` directory.  You can download them with
-
-    wget http://jnmaloof.github.io/BIS180L_web/data/BrapaV1.5_1000bp_upstream.fa.gz
-  
-Siobhan Brady has compiled a file of plant transcription factor binding motifs.  You can download those from
-
-    wget http://jnmaloof.github.io/BIS180L_web/data/element_name_and_motif_IUPACsupp.txt
-  
-Place these in your `Brapa_reference` directory
-
-Load the promoter sequences
-
-```r
-library(Biostrings) #R package for handling DNA and protein data
-promoters <- readDNAStringSet("../Brapa_reference/BrapaV1.5_1000bp_upstream.fa.gz")
-
-#convert "N" to "-" in promoters.  otherwise motifs will match strings of "N"s
-promoters <- DNAStringSet(gsub("N","-",promoters))
-
-promoters
-```
-
-Load the motifs and convert to a good format for R
-
-```r
-motifs <- read.delim("../Brapa_reference/element_name_and_motif_IUPACsupp.txt",header=FALSE,as.is=TRUE)
-head(motifs)
-motifsV <- as.character(motifs[,2])
-names(motifsV) <- motifs[,1]
-motifsSS <- DNAStringSet(motifsV)
-motifsSS
-```
-
-Next we need to subset the promoters into those in our DE genes and those in the "Universe"
-
-```r
-#get names to match...there are are few names in the DEgene list not in the promoter set
-DEgene.interaction.match <- row.names(DEgene.interaction)[row.names(DEgene.interaction) %in% names(promoters)]
-
-#subset promoter files
-universe.promoters <- promoters[expressed.genes.match]
-target.promoters <- promoters[DEgene.interaction.match]
-```
-
-### Look for over-represented motifs
-
-I have written a function to wrap up the required code.  Paste this into R to create the function
-
-```r
-#create a function to summarize the results and test for significance
-motifEnrichment <- function(target.promoters,universe.promoters,all.counts=F,motifs=motifsSS) {
-  
-  #use vcountPDict to count the occurences of each motif in each promoter
-  target.counts <- vcountPDict(motifs,target.promoters,fixed=F) + 
-    vcountPDict(motifsSS,reverseComplement(target.promoters),fixed=F)
-  universe.counts <- vcountPDict(motifs,universe.promoters,fixed=F) + 
-    vcountPDict(motifsSS,reverseComplement(universe.promoters),fixed=F)
-  
-  if (all.counts) { 
-    #count all occurences of a motif instead of the number of promoters that it occurs in
-    target.counts.sum <- apply(target.counts,1,sum)
-    universe.counts.sum <- apply(universe.counts,1,sum)
-  } else {
-    target.counts.sum <- apply(ifelse(target.counts > 0,1,0),1,sum)
-    universe.counts.sum <- apply(ifelse(universe.counts > 0 , 1, 0),1,sum)
-  }
-  n.motifs <- length(target.counts.sum)
-  results <- vector(mode="numeric",length=n.motifs)
-  for (i in 1:n.motifs) {
-    if (all.counts) { #the contigency tables are different depending on whether we are looking at promoters or overall occurences
-      #test if ratio of occurences to promoters is the same in the target and the universe
-      m <- matrix(c(
-        target.counts.sum[i],                       #number of occurences within target
-        dim(target.counts)[2],                      #number of promoters in target
-        universe.counts.sum[i],                  #number of occurences within universe
-        dim(universe.counts)[2]                  #number of promoters in universe
-      ),ncol=2)
-    } else { #looking at promoters with and without hits
-      m <- matrix(c(
-        target.counts.sum[i],                        #number of promoters in target with hit
-        dim(target.counts)[2]-target.counts.sum[i],            #number of promoters in target with no hit
-        universe.counts.sum[i],                   #number of promoters in universe with hit
-        dim(universe.counts)[2]-universe.counts.sum[i]   #number of promoters in universe with no hit
-      ),ncol=2)
-    } #else
-    results[i] <- fisher.test(m,alternative="greater")$p.value
-  } #for loop
-  results.table <- data.frame(
-    motif=names(motifs),
-    universe.percent = round(universe.counts.sum/dim(universe.counts)[2],3)*100,
-    target.percent = round(target.counts.sum/dim(target.counts)[2],3)*100,
-    p.value =  results)
-  results.table <- results.table[order(results.table$p.value),]
-  results.table
-}
-```
-
-Now with the function entered we can do the enrichment
-
-```r
-motif.results <- motifEnrichment(target.promoters,universe.promoters)
-head(motif.results)
-```
-The resulting table gives the p-value for enrichment for each motif, as well as the %of promoters in the universe and in our target gene set that have the motif.
-
-
-__Exercise 3__ 
-
-__a.__ How many motifs are enriched at P < 0.05?  
-__b.__ What is the identity of the most significantly over-enriched promoter?  
-__c.__ What percentage of genes in the "Universe" have this motif?  What percentage in our target set?  
-__d.__ You can find information on the motifs [here](http://arabidopsis.med.ohio-state.edu/AtcisDB/bindingsites.html).  Do you think that the most enriched motif represents a biologically meaningful result?  Discuss why or why not.
-
-
-
-
-
-
-
-
-
+Maybe for the final
+__c.__ Make a network plot in R. Never too much data visualization.
+Generate a heatmap of the distance matrix
+Generate a network plot of the distance matrix
+TODO -- check the output of QIIME for this
+include your code here as a code block and link your png like this
+XXX add a link
