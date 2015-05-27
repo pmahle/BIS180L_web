@@ -34,3 +34,4 @@ title: Readings and Resources
 ## May 28
 [Giant Panda Gut Microbiome](http://mbio.asm.org/content/6/3/e00022-15)
 [Genome Web Article on the Paper](../docs/Giant_Panda_Microbiome_Ill-Suited_for_Bamboo_Diet.pdf)
+[Metagenomics of the rice rhizosphere](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4345613/)
