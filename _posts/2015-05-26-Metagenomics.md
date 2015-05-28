@@ -50,7 +50,7 @@ You will also need to clone your assignments repository so that you can submit y
 ```bash
 git clone [fill in your link to HTTPS repo]
 ```
-+ Then `cd` into your BIS180L\_Assignments.First.Last/Assignment\_8 directory and `pull` your repository.
++ Then `cd` into your BIS180L\_Assignments.First.Last/Assignment\_9 directory and `pull` your repository.
 + There will be an assignment template for today's lab.
 
 
@@ -88,12 +88,6 @@ grep ">" RiceSeqs.fna | cut -d " " -f 4 | sort | uniq -c
 **Exercise 1:**
 Using information in the RiceMappingFile.txt and RiceSeqs.fna answer the following questions. Are the number of sequences for each sample approximately the same or are there any outliers? If so, which samples do they belong to? Could a different number of sequences per sample affect future analysis? Explain your reasoning.
 
->Exercise 1 KEY
-0.5pt Not same, outliers
-0.5pt IM1& IM2 are highest - IR50, 1mm_soil, tech rep2
-MB1 & MB2 have the lowest - root, M04 cultivar, root surface
-1 pt explanation of how this could affect
-
 Now that we've poked around in our raw data, let's carry on with analyzing the microbes present in our samples.
 
 ## Classify Various Microbiome Sequences into OTUs
@@ -118,14 +112,6 @@ biom summarize-table -i otus/otu_table.biom > otus/otu_class.txt
 From the OTU summary, look at how many OTUs correspond to each sample ("counts/sample detail"). Do technical replicates agree with one another? At this stage, what conclusions can you draw about the number of OTUs in these samples?  
 </br>*Note:* The OTUs actually match 1:1 with the number of sequences per sample ID/barcode (good thing we explored the quality of the data in exercise 1). This is an artifact of creating the smallest demo data set to use on the Virtual Boxes. The OTUs are still representative of the microbial diversity in that sample though.
 
->Exercise 2 KEY
-1 pt Tech reps don't agree
-1pt conclusions such as...
-Min OTU = IE1 289  least diversity
-Max OTU = IM2 4880  most diversity
-36155 total OTUs  
-OTU assignment is mutually exclusive (since such a high percent identity within a cluster)  
-
 As we learned last week, we can rely on the human eye to help pick out patterns based on color. We are going to make a heat map of the OTUs per sample. The OTU table is visualized as a heat map where each row corresponds to an OTU and each column corresponds to a sample. The higher the relative abundance of an OTU in a sample, the more intense the color at the corresponding position in the heat map. OTUs are clustered by [UPGMA hierarchical clustering](http://en.wikipedia.org/wiki/UPGMA). QIIME indicates the biological classification by prefixing the level for example "p\_" indicates phylum and  "g\_" indicates genus. For a refresher on biological classification, view this [helpful wiki page](http://en.wikipedia.org/wiki/Bacterial_taxonomy).  
 
 ```bash
@@ -134,12 +120,6 @@ make_otu_heatmap.py -i otus/otu_table.biom -o otus/OTU_Heatmap.pdf
 
 **Exercise 3:**
 Although, the resolution of the y-axis makes it difficult to read each OTU, it is still a valuable preliminary visualization. What types of information can you gain from this heat map? Are there any trends present at this stage with respect to the various samples?  
-
->Exercise 3 KEY
-1 pt types of info
-1 pt trends 
-It is clear that there are differences between the samples but at this stage it is unclear whether cultivar or treatment are determining those differences.
-
 
 Now we'd like to visualize our data with a little higher resolution and summarize the communities by their taxonomic composition.  
 
@@ -162,20 +142,11 @@ summarize\_taxa\_through\_plots.py -i otus/otu\_table.biom -o otus/wf\_taxa\_sum
 </font>
 
 **Exercise 4:**  
-__a.__ When comparing by treatment, which groups are the predominant phyla in the different samples? (Remember phyla is designated by "_p".) Are there any predominant groups unique to particular sample treatments?
+__a.__ When comparing by treatment, which groups are the predominant phyla in the different samples? (Remember phyla is designated by "_p".) Are there any predominant groups unique to particular sample treatments?  
 
->Exercise 4 KEY  
-0.5 pt Predominant: proteobacteria and actinobaceria are prominant in all samples and to a lesser extent bacteroides  
-0.5 pt Unique: gemmatimonadetes and verrucomicrobia are unique to 1mm soil, sphirochaetes is unique to root_inside  
+__b.__ When comparing by cultivar, are the predominant phyla consistent with those observed in Part A? Are there any predominant phyla unique to a specific cultivar? What does this indicate to you about the effect of the genotype and/or the effect of the treatment?  
 
-__b.__ When comparing by cultivar, are the predominant phyla consistent with those observed in Part A? Are there any predominant phyla unique to a specific cultivar? What does this indicate to you about the effect of the genotype and/or the effect of the treatment?
-
->Exercise 4 KEY  
-1 pt Yes consistent lots of actinobacteria and proteobacteria  
-0.5 pt No unique phyla  
-0.5 pt There is a treatment effect but no genotype effect  
-
-Now that we know a little more information about the OTUs in our sample, we'd like to calculate the diversity within a sample-the alpha diversity- and between our samples- the beta diversity.
+Now that we know a little more information about the OTUs in our sample, we'd like to calculate the diversity within a sample-the alpha diversity- and between our samples- the beta diversity.  
 
 ## Determine the Diversity Within a Sample
 Alpha diversity tells us about the richness of species diversity within our sample. It quantifies how many taxa are in one sample and allow us to answer questions like "Are polluted environments less diverse than pristine environments?". 
@@ -204,28 +175,12 @@ Open the `rarefaction_plots.html` and test different parameters to plot the metr
 **Exercise 5:**  
 Is there an alpha diversity metric that estimates the completeness of our sample diversity differently than the other metrics? If so, which one is it? Does this metric estimate a higher or lower sample diversity compared to the other metrics?
 
->Exercise 5 key
-1 pt yes, shannon entropy
-1 pt it estimates higher sample diversity
-
 **Exercise 6:**  
-__a.__ With Sample ID as the category, have we sequenced the full diversity possible for each sample? How do you know? Please indicate which metric(s) you used for your answer.
+__a.__ With Sample ID as the category, have we sequenced the full diversity possible for each sample? How do you know? Please indicate which metric(s) you used for your answer.  
 
->Exercise 5 KEY
-0.5 pt No
-0.5 pt Plots are still linear and have not reached a plateau indicating that complete sampling depth has not been achieved. (this holds true for all metrics except shannon entropy)
+__b.__ For Cultivar and Treatment, have we sequenced the full diversity of the various sites for all samples? How do you know?  
 
-__b.__ For Cultivar and Treatment, have we sequenced the full diversity of the various sites for all samples? How do you know?
-
->KEY
-0.5 pt no (cultivar is near completely sampled in pd_whole_tree)
-0.5 pt plots are still linear (not a complete plateau)
-
-__c.__ Which treatment had higher phylogenetic diversity? Which cultivar had higher phylogenetic diversity?
-
->KEY
-0.5 pt cultivar - unclear, all are comparable, nipponbare early has the highest observed species slightly
-0.5 treatment - 1mm soil by far
+__c.__ Which treatment had higher phylogenetic diversity? Which cultivar had higher phylogenetic diversity?  
 
 Now we will look at the diversity between our samples which is known as the beta diversity by plotting principal components and UPGMA trees.
 
@@ -251,23 +206,16 @@ PCoA is also known as multidimensional scaling and you should be familiar with i
 
 **Exercise 7:**  
 __a.__ Open the weighted and unweighted PCoA plots by double clicking the index.html in their respective folders. How does adjusting the PCoA plots for taxa abundance (weighted) affect the clustering and principal coordinates?  
-*Hint* On the colors tab, explore coloring by cultivar, treatment, etc.
-*Note:* These plots are very RAM heavy. You could email yourself the zipped `bf_bdiv_even289` folder and view them on the Windows machine, if the plots aren't working well on the Virtual Box.
-
->Exercise 7 key
-1 pt for explanation such as PC1 in in unweighted explains 16.96% whereas in the weighted it explains 32.81%. It also makes the Nipponbare early cultivar cluster more tightly.  
-1mm soil switches from PC1 to PC2. The root inside and outside now have more abundance and therefore account for a larger portion of the variance.
+*Hint* On the colors tab, explore coloring by cultivar, treatment, etc.  
+*Note:* These plots are very RAM heavy. You could email yourself the zipped `bf_bdiv_even289` folder and view them on the Windows machine, if the plots aren't working well on the Virtual Box.  
 
 __b.__ What are the significant correlations of particular samples? Does cultivar or treatment appear to have more of an influence on the clustering?  
-*Hint:* you can add labels to the plot to help visualize both characteristics at once.
+*Hint:* you can add labels to the plot to help visualize both characteristics at once.  
 
->Exercise 7 KEY  
-0.5 for treatment  
-0.5 for expanded description of clustering 1mm soil separates clearly from the root inside or root outside. The samples do not cluster strongly by cultivar
 
-The distance matrix generated for beta diversity can also be used to make UPGMA trees. UPGMA is a simple hierarchical clustering method and can be used to classify sampling units on the basis of pairwise similarities.
+The distance matrix generated for beta diversity can also be used to make UPGMA trees. UPGMA is a simple hierarchical clustering method and can be used to classify sampling units on the basis of pairwise similarities.  
 
-Let's utilize the beta diversity to generate UPGMA trees.
+Let's utilize the beta diversity to generate UPGMA trees.  
 
 ```bash
 ￼upgma_cluster.py –i wf_bdiv_even289/unweighted_unifrac_dm.txt –o ￼unweighted_upgma.tre
@@ -278,21 +226,12 @@ Let's utilize the beta diversity to generate UPGMA trees.
 + "Tree diag" and "Phenogram" provide useful displays.
 
 **Exercise 8:**  
-Which sites cluster together? Which sites are different? How would you explain this pattern of diversity?
-
->Exercise 8 KEY  
-0.5 similar cluster: 1mm soil, most of root inside and most of root outside
-0.5 different cluster: there is a small fourth cluster of Nipponbare early that has both inside and outside root
-1 explanation of diversity
-
+Which sites cluster together? Which sites are different? How would you explain this pattern of diversity?  
 
 **Exercise 9:**
-Discuss some of the potential physiologies of the predominant groups of microbes correlated with the various rice microbiome samples. This information can be taken from the displays in Exercise 3.
-*Hint* Use [MicrobeWiki](http://microbewiki.kenyon.edu/index.php/MicrobeWiki) or other online sites to learn more about these microbes.
+Discuss some of the potential physiologies of the predominant groups of microbes correlated with the various rice microbiome samples. This information can be taken from the displays in Exercise 3.  
+*Hint* Use [MicrobeWiki](http://microbewiki.kenyon.edu/index.php/MicrobeWiki) or other online sites to learn more about these microbes.  
 
-> Exercise 9 key
-0.5 pt selected phyla or other classification level from exercise 3
-1.5 for description which could include function, history, morphology, normal habitat, metabolism, etc.
 
 
 
