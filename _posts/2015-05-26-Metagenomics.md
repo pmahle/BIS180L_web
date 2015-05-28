@@ -29,7 +29,6 @@ Today we will walk through a common metagenomics workflow using [QIIME](www.qiim
 
 *Acknowledgement must be paid to Professor Scott Dawson for sharing his original metagenomics lab that we have adapted for this class and to the Sundaresan Lab for sharing the data from their recent [publication](http://www.ncbi.nlm.nih.gov/pubmed/25605935).*
 
-TODO read their paper
 
 ## Getting Started with QIIME
 Quantitative Insights Into Microbial Ecology or QIIME is an open-source bioinformatics pipeline for performing microbiome analysis from raw DNA sequencing data. It has been cited by over 2,500 peer-reviewed journals since its [publication](http://www.nature.com/nmeth/journal/v7/n5/full/nmeth.f.303.html) in 2010.  
