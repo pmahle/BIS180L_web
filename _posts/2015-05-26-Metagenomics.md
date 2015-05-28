@@ -9,13 +9,9 @@ tags:
 - Metagenomics
 ---
 
-# Assignment
+# Assignment 9
 
-Pull your repository for the assignment template. 
-
-Knit the file and submit the .Rmd and .html when you are done.  Open an issue indicating that the assignment is ready to be graded.
-
-TODO update if R is included
+After setting up the QIIME Virtual Box, pull your repository for the assignment template. 
 
 # Background
 
@@ -186,6 +182,8 @@ Alpha diversity tells us about the richness of species diversity within our samp
 
 There are more than two dozen different established metrics to calculate the alpha diversity. We will start with a small subset of methods. Feel free to read more details about other metrics [here](http://scikit-bio.org/docs/latest/generated/skbio.diversity.alpha.html).  
 
+As we noted before, there are a different number of sequences per sample. When quantifying the alpha diversity, this could cause difficulties. However, *in silico* rarefaction analysis will account for this. Rarefaction provides a method of comparison between different communities, whereby each community is "rarefied" back to an equal number of sampled specimens. For example, a rarefaction with a depth of 75 is a simulation of what your sequencing results would look like if you sequenced exactly 75 reads from each sample. To look at alpha diversity systematically, we will performed many rarefactions to investigate the richness of our samples.
+
 Compute the alpha diversity by generating rarefaction curves.
 
 ```bash
@@ -201,19 +199,17 @@ alpha_rarefaction.py –i otus/otu_table.biom –m Data/RiceMappingFile.txt –o
 `-p` passes the methods used to calculate the alpha diversity  
 `-t` passes the path to the phylogenetic tree file  
 
-As we noted before, there are a different number of sequences per sample. When quantifying the within sample diversity, this could cause difficulties. However, the *in silico* rarefaction analysis accounts for this. Rarefaction provides a method of comparison between different communities, whereby each community is "rarefied" back to an equal number of sampled specimens. For example, a rarefaction with a depth of 75 is a simulation of what your sequencing results would look like if you sequenced exactly 75 reads from each sample. To look at alpha diversity systematically, we performeded many rarefactions to investigate the richness of our samples.
-
 Open the `rarefaction_plots.html` and test different parameters to plot the metric tested against a category such as Sample ID, Treatment, or Cultivar.
 
 **Exercise 5:**  
-Is there a metric that displays a different estimation of our sample diversity? If so, which one is it? Does this metric estimate a higher or lower sample diversity compared to the other metrics?
+Is there an alpha diversity metric that estimates the completeness of our sample diversity differently than the other metrics? If so, which one is it? Does this metric estimate a higher or lower sample diversity compared to the other metrics?
 
 >Exercise 5 key
 1 pt yes, shannon entropy
 1 pt it estimates higher sample diversity
 
 **Exercise 6:**  
-__a.__ With Sample ID as the category, have we sequenced the full diversity of the various sites for all samples? How do you know? Please indicate which metric(s) you used for your answer.
+__a.__ With Sample ID as the category, have we sequenced the full diversity possible for each sample? How do you know? Please indicate which metric(s) you used for your answer.
 
 >Exercise 5 KEY
 0.5 pt No
@@ -251,7 +247,7 @@ Why do you think we set the sequencing depth at 289 reads? That is the minimum n
 
 This script returns a distance matrix and principal coordinate analysis (PCoA) plots. The dissimilarity between samples is measured by the UniFrac method which calculates the phylogenetic distance between sets of taxa. Weighted UniFrac (opposed to unweighted) accounts for the relative abundance of each taxa within the communities.
 
-PCoA is also known as multidimensional scaling and you should be familiar with it by now from our earlier labs. If you'd like more information about the differences between PCoA and PCA, check out this [helpful blog post[(http://occamstypewriter.org/boboh/2012/01/17/pca_and_pcoa_explained/) or [this course website](http://ordination.okstate.edu/overview.htm#Principal_coordinates_analysis).
+PCoA is also known as multidimensional scaling and you should be familiar with it by now from our earlier labs. If you'd like more information about the differences between PCoA and PCA, check out this [helpful blog post](http://occamstypewriter.org/boboh/2012/01/17/pca_and_pcoa_explained/) or [this course website](http://ordination.okstate.edu/overview.htm#Principal_coordinates_analysis).
 
 **Exercise 7:**  
 __a.__ Open the weighted and unweighted PCoA plots by double clicking the index.html in their respective folders. How does adjusting the PCoA plots for taxa abundance (weighted) affect the clustering and principal coordinates?  
@@ -260,7 +256,7 @@ __a.__ Open the weighted and unweighted PCoA plots by double clicking the index.
 
 >Exercise 7 key
 1 pt for explanation such as PC1 in in unweighted explains 16.96% whereas in the weighted it explains 32.81%. It also makes the Nipponbare early cultivar cluster more tightly.  
-1mm soil switches from PC1 to PC2. The root inside and outside now have more abundance and therefore can explain more variance.
+1mm soil switches from PC1 to PC2. The root inside and outside now have more abundance and therefore account for a larger portion of the variance.
 
 __b.__ What are the significant correlations of particular samples? Does cultivar or treatment appear to have more of an influence on the clustering?  
 *Hint:* you can add labels to the plot to help visualize both characteristics at once.
