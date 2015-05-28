@@ -27,7 +27,11 @@ title: Readings and Resources
 [Rice GWAS](../docs/Zhao2011_Nat Commun.pdf)
 
 ## May 05
-[van Dijk Next Gen Seq](../docs/van Dijk et al. - 2014 - Ten years of next-generation sequencing technology)
-[Illumina Seq technology](http://www.illumina.com/content/dam/illumina-marketing/documents/products/illumina_sequencing_introduction.pdf)
-[Illumina Video](https://www.youtube.com/embed/HMyCqWhwB8E?iframe&rel=0&autoplay=1)
+[van Dijk Next Gen Seq](../docs/van Dijk et al. - 2014 - Ten years of next-generation sequencing technology)  
+[Illumina Seq technology](http://www.illumina.com/content/dam/illumina-marketing/documents/products/illumina_sequencing_introduction.pdf)  
+[Illumina Video](https://www.youtube.com/embed/HMyCqWhwB8E?iframe&rel=0&autoplay=1)  
 
+## May 28
+[Giant Panda Gut Microbiome](http://mbio.asm.org/content/6/3/e00022-15)  
+[Genome Web Article on the Paper](../docs/Giant_Panda_Microbiome_Ill-Suited_for_Bamboo_Diet.pdf)  
+[Metagenomics of the rice rhizosphere](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4345613/)  
