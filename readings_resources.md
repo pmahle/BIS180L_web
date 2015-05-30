@@ -6,12 +6,11 @@ title: Readings and Resources
 ## Day One (March 31)
 [Noble: Organizing Bioinformatics Projects](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000424#pcbi-1000424-g001) __Required__  
 [(R) Markdown quick reference](http://rmarkdown.rstudio.com/authoring_basics.html)  
-[Linux quick reference](http://www.linuxdevcenter.com/excerpt/LinuxPG_quickref/linux.pdf) 
-
+[Linux quick reference](http://www.linuxdevcenter.com/excerpt/LinuxPG_quickref/linux.pdf)  
 [How to make and configure your own virtual machine]({{ site.baseurl }}/Creating_VBox_machine) 
 
 ## Day Two (April 02)
-[Git increases reproducibility and transparency](http://www.scfbm.org/content/8/1/7)
+[Git increases reproducibility and transparency](http://www.scfbm.org/content/8/1/7)  
 [Sequence Analysis Primer](../docs/SequenceAnalysisPrimer.pdf)
 
 ## April 09
@@ -27,7 +26,7 @@ title: Readings and Resources
 [Rice GWAS](../docs/Zhao2011_Nat Commun.pdf)
 
 ## May 05
-[van Dijk Next Gen Seq](../docs/van Dijk et al. - 2014 - Ten years of next-generation sequencing technology)  
+[van Dijk Next Gen Seq](../docs/van Dijk et al. - 2014 - Ten years of next-generation sequencing technology.pdf)  
 [Illumina Seq technology](http://www.illumina.com/content/dam/illumina-marketing/documents/products/illumina_sequencing_introduction.pdf)  
 [Illumina Video](https://www.youtube.com/embed/HMyCqWhwB8E?iframe&rel=0&autoplay=1)  
 

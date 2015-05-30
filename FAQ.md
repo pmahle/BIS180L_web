@@ -26,13 +26,14 @@ title: FAQ
 
 **Q:** Virtual Box has *fill in frustrating error message here*. What can I do?
 >**A:** Try the following: listed in order of severity.
-1. Check system architecture.
+
+>1. Check system architecture.
 	+ Open Ubuntu Settings while the machine is not running
 	+ In the General tab, it should say Version Ubuntu (64-bit).
 	+ If it doesn't, change it.
 2. Check memory settings
 	+ Your machine could be running out of memory
-	+ In Settings > System tab, change base memory to say 2500 MB
+	+ In Settings > System tab, change base memory to say 2500 MB.
 3. If neither of these work
 	+ Reboot the Virtual Box, holding down shift as soon as reboot starts.  
 	+ Choose Advanced Options for Ubuntu. 
